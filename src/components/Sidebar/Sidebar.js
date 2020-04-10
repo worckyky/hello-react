@@ -1,9 +1,10 @@
 import React from 'react';
+import classes from './Sidebar.module.css'
 
 const Sidebar = () => {
   return (
-    <nav className={'sidebar'}>
-      <ul className={'sidebar__list'}>
+    <nav className={classes.sidebar}>
+      <ul className={classes.sidebar__list}>
         <li>
           <a href="/">Profile</a>
         </li>
@@ -17,7 +18,7 @@ const Sidebar = () => {
           <a href="/">Music</a>
         </li>
       </ul>
-      <div className={'sidebar__settings'}>
+      <div className={classes.sidebar__settings}>
         <a href="/">Settings</a>
       </div>
     </nav>
