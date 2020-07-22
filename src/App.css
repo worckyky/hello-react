@@ -6,7 +6,10 @@
   grid-template-columns: 2fr 10fr;
   grid-gap: 24px;
   grid-template-areas:
-          "header header"
-          "navigation content";
+    'header header'
+    'navigation content';
 }
 
+.app-wrapper-content {
+  grid-area: content;
+}

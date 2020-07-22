@@ -1,20 +1,24 @@
-
 .sidebar {
-    grid-area: navigation;
-    background-color: darkgreen;
+  grid-area: navigation;
+  background-color: darkgreen;
 }
 
-.sidebar__list , .sidebar__settings{
-    text-decoration: none;
-    list-style: none;
-    padding-left: 24px;
-
+.sidebar__list,
+.sidebar__settings {
+  text-decoration: none;
+  list-style: none;
+  padding-left: 24px;
 }
 
 .sidebar__list li {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
-.sidebar a {
-    text-decoration: none;
-    color: #ffffff;
+
+.sidebar__link {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.link__active {
+  color: orangered !important;
 }

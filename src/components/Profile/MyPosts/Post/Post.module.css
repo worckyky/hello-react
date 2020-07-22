@@ -1,0 +1,15 @@
+.content__comment_block {
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+}
+
+.content__comment_img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: yellowgreen;
+}
+.content__comment_text {
+    margin-left: 24px;
+}
