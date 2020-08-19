@@ -8,24 +8,26 @@ import {profilePageType} from "../../redux/state";
 
 type ProfileType = {
     profile: profilePageType
+    addPost: (postText: string) => void;
 }
 
-const Profile: React.FC<ProfileType> = ({profile}) => {
+const Profile: React.FC<ProfileType> = ({profile, addPost}) => {
 
-    const [post, setPost] = useState (profile.postData);
-    const [textArea, setTextArea] = useState<string>('');
+    // const [post, setPost] = useState (profile.postData);
+    // const [textArea, setTextArea] = useState<string>('');
+    //
+    // const addPost = () => {
+    //     setPost([
+    //         {
+    //             id: v1(),
+    //             message: textArea,
+    //             likesCount: 12
+    //         },
+    //         ...post
+    //     ]);
+    //     setTextArea('');
+    // };
 
-    const addPost = () => {
-        setPost([
-            {
-                id: v1(),
-                message: textArea,
-                likesCount: 12
-            },
-            ...post
-        ]);
-        setTextArea('');
-    };
 
 
     return (
@@ -34,7 +36,7 @@ const Profile: React.FC<ProfileType> = ({profile}) => {
             <div className={classes.content__description}>
                 <ProfileInfo/>
             </div>
-            <ChatBlock textAreaValue={textArea} setTextAreaValue={setTextArea} addPost={addPost}/>
+            <ChatBlock addPost={addPost}/>
             <MyPosts postData={profile.postData}/>
         </div>
     );

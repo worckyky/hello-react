@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {renderTree} from "../render";
 
 
 export type postDataType = {
@@ -67,6 +68,17 @@ let state: RootStateType = {
             }]
         }
     }
+};
+
+
+export const addPost = (postText: string) => {
+    const newPost: postDataType = {
+        id: v1(),
+        message: postText,
+        likesCount: 0
+    };
+    state.profilePage.postData.push(newPost);
+    renderTree(state)
 };
 
 export default state
