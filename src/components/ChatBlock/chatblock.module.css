@@ -1,0 +1,25 @@
+.content__chat {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
+
+.content__chat textarea {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    height: 100px;
+    padding: 8px;
+    resize: none;
+}
+
+.content__chat button {
+    width: 120px;
+    padding: 8px 0px;
+    background-color: darkgreen;
+    color: #ffffff;
+    align-self: flex-end;
+    font-weight: 700;
+    outline: none;
+    cursor: pointer;
+}

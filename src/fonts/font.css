@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 100;
+    src: url('./Montserrat-Light.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 300;
+    src: url('./Montserrat-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    src: url('./Montserrat-Bold.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+

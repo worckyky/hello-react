@@ -1,9 +1,10 @@
+
 .app-wrapper {
   display: grid;
   max-width: 960px;
   margin: 0 auto;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
+  grid-template-rows: 80px 1fr;
+  grid-template-columns: 222px 9fr;
   grid-gap: 24px;
   grid-template-areas:
     'header header'

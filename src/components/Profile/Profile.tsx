@@ -1,31 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from './ProfileInfo/ProfileInfo';
+import ChatBlock from "../ChatBlock/ChatBlock";
+import {v1} from 'uuid';
+import {profilePageType} from "../../redux/state";
+
+type ProfileType = {
+    profile: profilePageType
+}
+
+const Profile: React.FC<ProfileType> = ({profile}) => {
+
+    const [post, setPost] = useState (profile.postData);
+    const [textArea, setTextArea] = useState<string>('');
+
+    const addPost = () => {
+        setPost([
+            {
+                id: v1(),
+                message: textArea,
+                likesCount: 12
+            },
+            ...post
+        ]);
+        setTextArea('');
+    };
 
 
-console.log(classes)
-const Profile = () => {
-  return (
-    <div className={classes.content}>
-      <img className={classes.content__bg} src="https://clck.ru/MqoWL" alt="" />
-      <div className={classes.content__description}>
-        <img src="https://clck.ru/Mr77z" alt="" />
-        <div className={classes.content__description_text}>
-          <h2>Dmitry K</h2>
-          <p>Date of Birth: 2 january</p>
-          <p>City: Minsk</p>
-          <p>Education: BSU'11</p>
-          <p>Web Site: https://it-kamasutra.com</p>
+    return (
+        <div className={classes.content}>
+            <img className={classes.content__bg} src="https://clck.ru/MqoWL" alt=""/>
+            <div className={classes.content__description}>
+                <ProfileInfo/>
+            </div>
+            <ChatBlock textAreaValue={textArea} setTextAreaValue={setTextArea} addPost={addPost}/>
+            <MyPosts postData={profile.postData}/>
         </div>
-      </div>
-      <div className={classes.content__chat}>
-        <h2>My posts</h2>
-        <textarea name="" id="" cols={30} rows={10} placeholder={'Set your data'}></textarea>
-        <button>Send</button>
-      </div>
-      <MyPosts/>
-    </div>
-  );
+    );
 };
 
 export default Profile;

@@ -1,16 +1,18 @@
 import React from 'react';
 import Post from './Post/Post';
 import classes from './MyPosts.module.css';
+import {postDataType} from "../../../redux/state";
 
-const MyPosts = () => {
+type MyPostsType = {
+  postData: Array<postDataType>
+}
+
+const MyPosts: React.FC<MyPostsType> = ({postData}) => {
   return (
     <div className={classes.content__comment}>
-      <Post text={'Привет'} />
-      <Post text={'Пока'} />
-      <Post text={'Привет'} />
-      <Post text={'Пока'} />
-      <Post text={'Привет'} />
-      <Post text={'Пока'} />
+        {postData.map(post => {
+            return <Post text={post.message} key={post.id}/>
+        })}
     </div>
   );
 };

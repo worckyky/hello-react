@@ -1,0 +1,29 @@
+.sidebar__link {
+    display: flex;
+    height: 56px;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 16px;
+    border-bottom: 1px solid #F0F0F0;
+
+}
+.sidebar__link:hover {
+    background-color: #FAFAFA;
+    transition: ease-in-out 0.3s;
+}
+.sidebar__link_text {
+    font-size: 14px;
+    color: #242424;
+    line-height: 24px;
+    margin-left: 8px;
+}
+
+.sidebar__link_active {
+    background-color: rgba(103, 248, 152, 0.2);
+}
+.sidebar__link_active:hover {
+    background-color: rgba(103, 248, 152, 0.2);
+}
+.sidebar__link_active path {
+    fill: #242424;
+}

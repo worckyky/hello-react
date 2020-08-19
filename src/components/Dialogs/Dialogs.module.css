@@ -9,7 +9,7 @@
     flex-direction: column;
 }
 
-.dialog a{
+.dialog {
     color: inherit;
     text-decoration: none;
 }
