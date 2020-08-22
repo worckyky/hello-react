@@ -6,27 +6,31 @@ import Profile from './components/Profile/Profile';
 import Dialogs from './components/Dialogs/Dialogs';
 import HeaderBg from './components/Headers/HeaderBg/HeaderBg';
 import {Route, BrowserRouter} from 'react-router-dom';
-import {RootStateType, addPost} from "./redux/state";
+import {RootStateType, addPost, updateNewPostText} from "./redux/state";
 
 
 type AppType = {
     state: RootStateType
 }
 
+
 const App: React.FC<AppType> = ({state}) => {
-  return (
-    <BrowserRouter>
-      <HeaderBg/>
-      <div className={'app-wrapper'}>
-        <Header/>
-        <Sidebar/>
-        <div className={'app-wrapper-content'}>
-          <Route exact path={'/profile'} render={ () => <Profile profile={state.profilePage} addPost={addPost}/>} />
-          <Route path={'/dialogs'} render={ () => <Dialogs dialogs={state.dialogsPage}/>} />
-        </div>
-      </div>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <HeaderBg/>
+            <div className={'app-wrapper'}>
+                <Header/>
+                <Sidebar/>
+                <div className={'app-wrapper-content'}>
+                    <Route exact path={'/profile'} render={() => <Profile profile={state.profilePage}
+                                                                          addPost={addPost}
+                                                                          updatePost={updateNewPostText}
+                                                                          newPostText={state.profilePage.postText}/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs dialogs={state.dialogsPage}/>}/>
+                </div>
+            </div>
+        </BrowserRouter>
+    );
 };
 
 export default App;

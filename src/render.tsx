@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import React from "react";
 import App from "./App";
 
+
+
 export const renderTree = (state: RootStateType) => {
     ReactDOM.render(
         <React.StrictMode>

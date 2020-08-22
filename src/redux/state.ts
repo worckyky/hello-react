@@ -7,8 +7,10 @@ export type postDataType = {
     message: string,
     likesCount: number
 }
+
 export type profilePageType = {
     postData: Array<postDataType>
+    postText: string
 }
 type usersType = {
     name: string,
@@ -23,6 +25,7 @@ type dialogDataType = {
     users: Array<usersType>,
     messages: Array<messagesType>
 }
+
 export type dialogPageType = {
     dialogData: dialogDataType
 }
@@ -40,6 +43,7 @@ let state: RootStateType = {
             {id: v1(), message: 'it\'s my first post', likesCount: 16},
             {id: v1(), message: 'Hi, how are you?', likesCount: 17},
         ],
+        postText: ''
     },
     dialogsPage: {
         dialogData: {
@@ -71,15 +75,23 @@ let state: RootStateType = {
 };
 
 
-export const addPost = (postText: string) => {
+
+export const addPost = () => {
     const newPost: postDataType = {
         id: v1(),
-        message: postText,
+        message: state.profilePage.postText,
         likesCount: 0
     };
     state.profilePage.postData.push(newPost);
+    state.profilePage.postText = '';
     renderTree(state)
 };
+
+export const updateNewPostText = (text: string) =>{
+    state.profilePage.postText = text;
+    renderTree(state);
+}
+
 
 export default state
 

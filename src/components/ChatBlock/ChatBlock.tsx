@@ -3,23 +3,24 @@ import classes from './chatblock.module.css';
 
 
 type chatType = {
-    addPost: (postText: string) => void;
+    addPost: () => void;
+    updatePost: (text: string) => void;
+    newPostText: string
 };
 
 
-const ChatBlock: React.FC<chatType> = ({addPost}) => {
+const ChatBlock: React.FC<chatType> = ({addPost, newPostText, updatePost}) => {
 
     const textareaRef = React.createRef<HTMLTextAreaElement>();
 
-    // const handlerInputData = (event: any) => {
-    //     setTextAreaValue(event.currentTarget.value);
-    // };
-
     const addPostHandler = () => {
+        addPost();
+    };
+    const textAreaChangeHandler = () => {
         if (textareaRef.current) {
-            addPost(textareaRef.current?.value)
+            updatePost(textareaRef.current?.value)
         }
-    }
+    };
 
     return (
         <div className={classes.content__chat}>
@@ -29,8 +30,10 @@ const ChatBlock: React.FC<chatType> = ({addPost}) => {
                       cols={30}
                       rows={10}
                       placeholder={'Set your data'}
-                      ref={textareaRef}>
-            </textarea>
+                      ref={textareaRef}
+                      onChange={textAreaChangeHandler}
+                      value={newPostText}
+            />
             <button onClick={addPostHandler}>Send</button>
         </div>
     )
