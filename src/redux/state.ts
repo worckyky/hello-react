@@ -61,12 +61,26 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
+    _onChange: () => void
     addPost: () => void
     updateNewPostText: (text: string) => void
-    _onChange: () => void
     subscribe: (callback: () => void) => void
     getState: () => RootStateType
+    dispatch: (action: ActionsType) => void
 }
+
+type AddPostActionType = {
+    type: 'ADD-POST',
+    // postText: string
+}
+
+type ChangeNewTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT',
+    newText: string
+}
+
+export type ActionsType = AddPostActionType | ChangeNewTextActionType
+
 
 const store: StoreType = {
     _state: {
@@ -188,6 +202,9 @@ const store: StoreType = {
             }
         }
     },
+    _onChange() {
+
+    },
     addPost() {
         const newPost: postDataType = {
             id: v1(),
@@ -202,16 +219,28 @@ const store: StoreType = {
         this._state.profilePage.postText = text;
         this._onChange();
     },
-    _onChange() {
-
-    },
     subscribe(callback) {
         this._onChange = callback
     },
     getState() {
         return this._state;
+    },
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPost: postDataType = {
+                id: v1(),
+                // message: action.postText
+                message: this._state.profilePage.postText,
+                likesCount: 0
+            };
+            this._state.profilePage.postData.push(newPost);
+            this._state.profilePage.postText = '';
+            this._onChange();
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.postText = action.newText;
+        this._onChange();
     }
-
+}
 }
 
 
