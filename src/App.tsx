@@ -27,8 +27,6 @@ const App: React.FC<AppType> = ({store}) => {
                 <div className={'app-wrapper-content'}>
                     <Route exact path={'/profile'} render={() => <Profile profile={state.profilePage}
                                                                           dispatch={store.dispatch.bind(store)}
-                                                                          addPost={store.addPost.bind(store)}
-                                                                          updatePost={store.updateNewPostText.bind(store)}
                                                                           newPostText={state.profilePage.postText}/>}/>
                     <Route path={'/dialogs'} render={() => <Dialogs dialogs={state.dialogsPage}/>}/>
                 </div>

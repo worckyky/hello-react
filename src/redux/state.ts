@@ -1,13 +1,18 @@
 import {v1} from "uuid";
 import image from '../img/users/1.jpg'
 
+// Action type
+
+const ADD_POST: string = 'ADD_POST';
+const UPDATE_NEW_POST_TEXT: string = 'UPDATE-NEW-POST-TEXT';
+const UPDATE_NEW_MESSAGE_BODY: string = 'UPDATE-NEW-POST-TEXT';
+
 
 export type postDataType = {
     id: string,
     message: string,
     likesCount: number
 }
-
 export type profilePageType = {
     postData: Array<postDataType>
     postText: string
@@ -27,6 +32,7 @@ type dialogDataType = {
 }
 export type dialogPageType = {
     dialogData: dialogDataType
+    newMessageBody: string
 }
 
 export type NavigationElementType = {
@@ -62,24 +68,16 @@ export type RootStateType = {
 export type StoreType = {
     _state: RootStateType
     _onChange: () => void
-    addPost: () => void
-    updateNewPostText: (text: string) => void
     subscribe: (callback: () => void) => void
     getState: () => RootStateType
     dispatch: (action: ActionsType) => void
 }
 
-type AddPostActionType = {
-    type: 'ADD-POST',
-    // postText: string
-}
+export type ActionsType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof changeNewTextAC>
+    | ReturnType<typeof changeNewMessageBodyAC>
 
-type ChangeNewTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT',
-    newText: string
-}
-
-export type ActionsType = AddPostActionType | ChangeNewTextActionType
 
 
 const store: StoreType = {
@@ -119,7 +117,8 @@ const store: StoreType = {
                     id: 3,
                     text: 'Poka'
                 }]
-            }
+            },
+            newMessageBody: ''
         },
         sideBar: {
             navigation: [{
@@ -205,20 +204,6 @@ const store: StoreType = {
     _onChange() {
 
     },
-    addPost() {
-        const newPost: postDataType = {
-            id: v1(),
-            message: this._state.profilePage.postText,
-            likesCount: 0
-        };
-        this._state.profilePage.postData.push(newPost);
-        this._state.profilePage.postText = '';
-        this._onChange();
-    },
-    updateNewPostText(text: string) {
-        this._state.profilePage.postText = text;
-        this._onChange();
-    },
     subscribe(callback) {
         this._onChange = callback
     },
@@ -229,7 +214,6 @@ const store: StoreType = {
         if (action.type === 'ADD-POST') {
             const newPost: postDataType = {
                 id: v1(),
-                // message: action.postText
                 message: this._state.profilePage.postText,
                 likesCount: 0
             };
@@ -238,11 +222,36 @@ const store: StoreType = {
             this._onChange();
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.postText = action.newText;
-        this._onChange();
+            this._onChange();
+        } else if (action.type === 'UPDATE_NEW_MESSAGE_BODY') {
+            this._state.dialogsPage.newMessageBody = action.newMessage;
+            this._onChange();
+        }
     }
 }
+
+
+// Actions
+
+export const addPostAC = () => {
+    return {
+        type: ADD_POST
+    } as const
+};
+
+export const changeNewTextAC = (newText: string) => {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        newText: newText
+    } as const
 }
 
+export const changeNewMessageBodyAC = (newMessage: string) => {
+    return {
+        type: UPDATE_NEW_MESSAGE_BODY,
+        newMessage: newMessage
+    } as const
+}
 
 export default store
 

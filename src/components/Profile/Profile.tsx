@@ -7,13 +7,11 @@ import {profilePageType, ActionsType} from "../../redux/state";
 
 type ProfileType = {
     profile: profilePageType
-    addPost: () => void
-    updatePost: (text: string) => void
     newPostText: string
     dispatch: (action: ActionsType) => void
 }
 
-const Profile: React.FC<ProfileType> = ({profile, addPost, newPostText, updatePost, dispatch}) => {
+const Profile: React.FC<ProfileType> = ({profile, newPostText, dispatch}) => {
 
 
     return (
@@ -22,7 +20,7 @@ const Profile: React.FC<ProfileType> = ({profile, addPost, newPostText, updatePo
             <div className={classes.content__description}>
                 <ProfileInfo/>
             </div>
-            <ChatBlock addPost={addPost} newPostText={newPostText} updatePost={updatePost} dispatch={dispatch}/>
+            <ChatBlock newPostText={newPostText} dispatch={dispatch}/>
             <MyPosts postData={profile.postData}/>
         </div>
     );
