@@ -1,0 +1,16 @@
+.navigation__list {
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.sidebar__link {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.link__active {
+    color: orangered !important;
+}

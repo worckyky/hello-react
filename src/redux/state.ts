@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {renderTree} from "../render";
+import image from '../img/users/1.jpg'
 
 
 export type postDataType = {
@@ -25,74 +25,196 @@ type dialogDataType = {
     users: Array<usersType>,
     messages: Array<messagesType>
 }
-
 export type dialogPageType = {
     dialogData: dialogDataType
 }
+
+export type NavigationElementType = {
+    text: string;
+    link: string;
+    icon: string;
+    id: number
+}
+
+
+export type friendType = {
+    photo: string,
+    name: string,
+    id: string
+}
+
+export type allFriendsType = {
+    allFriends: Array<friendType>
+    onlineFriends: Array<friendType>
+}
+
+export type sideBarType = {
+    navigation: Array<NavigationElementType>,
+    friends: allFriendsType
+}
+
 export type RootStateType = {
     profilePage: profilePageType,
-    dialogsPage: dialogPageType
+    dialogsPage: dialogPageType,
+    sideBar: sideBarType
 }
 
-let state: RootStateType = {
-    profilePage: {
-        postData: [
-            {id: v1(), message: 'Hi, how are you?', likesCount: 12},
-            {id: v1(), message: 'it\'s my first post', likesCount: 6},
-            {id: v1(), message: 'Hi, how are you?', likesCount: 12},
-            {id: v1(), message: 'it\'s my first post', likesCount: 16},
-            {id: v1(), message: 'Hi, how are you?', likesCount: 17},
-        ],
-        postText: ''
-    },
-    dialogsPage: {
-        dialogData: {
-            users: [{
-                name: 'Толя',
+export type StoreType = {
+    _state: RootStateType
+    addPost: () => void
+    updateNewPostText: (text: string) => void
+    _onChange: () => void
+    subscribe: (callback: () => void) => void
+    getState: () => RootStateType
+}
+
+const store: StoreType = {
+    _state: {
+        profilePage: {
+            postData: [
+                {id: v1(), message: 'Hi, how are you?', likesCount: 12},
+                {id: v1(), message: 'it\'s my first post', likesCount: 6},
+                {id: v1(), message: 'Hi, how are you?', likesCount: 12},
+                {id: v1(), message: 'it\'s my first post', likesCount: 16},
+                {id: v1(), message: 'Hi, how are you?', likesCount: 17},
+            ],
+            postText: ''
+        },
+        dialogsPage: {
+            dialogData: {
+                users: [{
+                    name: 'Толя',
+                    id: 1,
+                    link: 'dialogs'
+                }, {
+                    name: 'Вася',
+                    id: 2,
+                    link: 'dialogs'
+                }, {
+                    name: 'Пется',
+                    id: 3,
+                    link: 'dialogs'
+                }],
+                messages: [{
+                    id: 1,
+                    text: 'Hello my frend'
+                }, {
+                    id: 2,
+                    text: 'Priveat'
+                }, {
+                    id: 3,
+                    text: 'Poka'
+                }]
+            }
+        },
+        sideBar: {
+            navigation: [{
+                text: 'Profile',
+                link: '/profile',
+                icon: 'Profile',
                 id: 1,
-                link: 'dialogs'
             }, {
-                name: 'Вася',
+                text: 'Dialogs',
+                link: '/dialogs',
+                icon: 'Message',
                 id: 2,
-                link: 'dialogs'
             }, {
-                name: 'Пется',
+                text: 'News',
+                link: '/news',
+                icon: 'News',
                 id: 3,
-                link: 'dialogs'
-            }],
-            messages: [{
-                id: 1,
-                text: 'Hello my frend'
             }, {
-                id: 2,
-                text: 'Priveat'
+                text: 'Music',
+                link: '/music',
+                icon: 'Music',
+                id: 4,
             }, {
-                id: 3,
-                text: 'Poka'
-            }]
+                text: 'Settings',
+                link: '/settings',
+                icon: 'Settings',
+                id: 5,
+            },],
+            friends: {
+                allFriends: [{
+                    photo: image,
+                    name: 'Vanya',
+                    id: v1()
+                }, {
+                    photo: image,
+                    name: 'Jenya',
+                    id: v1()
+                }, {
+                    photo: image,
+                    name: 'Benya',
+                    id: v1()
+                }, {
+                    photo: image,
+                    name: 'Serya',
+                    id: v1()
+                }, {
+                    photo: image,
+                    name: 'Hello',
+                    id: v1()
+                }, {
+                    photo: image,
+                    name: 'Bitch',
+                    id: v1()
+                }],
+                onlineFriends: [{
+                    photo: image,
+                    name: 'Vanya',
+                    id: v1()
+                }, {
+                    photo: image,
+                    name: 'Jenya',
+                    id: v1()
+                }, {
+                    photo: image,
+                    name: 'Benya',
+                    id: v1()
+                }, {
+                    photo: image,
+                    name: 'Serya',
+                    id: v1()
+                }, {
+                    photo: image,
+                    name: 'Hello',
+                    id: v1()
+                }, {
+                    photo: image,
+                    name: 'Bitch',
+                    id: v1()
+                }]
+            }
         }
+    },
+    addPost() {
+        const newPost: postDataType = {
+            id: v1(),
+            message: this._state.profilePage.postText,
+            likesCount: 0
+        };
+        this._state.profilePage.postData.push(newPost);
+        this._state.profilePage.postText = '';
+        this._onChange();
+    },
+    updateNewPostText(text: string) {
+        this._state.profilePage.postText = text;
+        this._onChange();
+    },
+    _onChange() {
+
+    },
+    subscribe(callback) {
+        this._onChange = callback
+    },
+    getState() {
+        return this._state;
     }
-};
 
-
-
-export const addPost = () => {
-    const newPost: postDataType = {
-        id: v1(),
-        message: state.profilePage.postText,
-        likesCount: 0
-    };
-    state.profilePage.postData.push(newPost);
-    state.profilePage.postText = '';
-    renderTree(state)
-};
-
-export const updateNewPostText = (text: string) =>{
-    state.profilePage.postText = text;
-    renderTree(state);
 }
 
 
-export default state
+export default store
 
 

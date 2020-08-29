@@ -1,0 +1,21 @@
+.friendListElement {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+.friendListElement__img {
+    width: auto;
+    height: 55px;
+    border-radius: 6px;
+    border: 1px solid #F0F0F0;
+}
+
+.friendListElement__nickName {
+    margin-top: 6px;
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 8px;
+    line-height: 8px;
+    color: #7B7B7B;
+}

@@ -1,0 +1,8 @@
+.navigation {
+    grid-area: navigation;
+    height: inherit;
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #F0F0F0;
+    margin-bottom: 32px;
+}

@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, ChangeEventHandler} from "react";
 import classes from './chatblock.module.css';
 
 
@@ -16,10 +16,12 @@ const ChatBlock: React.FC<chatType> = ({addPost, newPostText, updatePost}) => {
     const addPostHandler = () => {
         addPost();
     };
-    const textAreaChangeHandler = () => {
-        if (textareaRef.current) {
-            updatePost(textareaRef.current?.value)
-        }
+    const textAreaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        // if (textareaRef.current) {
+        //     updatePost(textareaRef.current?.value)
+        // }
+        updatePost(e.currentTarget.value)
+
     };
 
     return (

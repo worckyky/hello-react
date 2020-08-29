@@ -1,0 +1,23 @@
+.friend__header {
+    border-bottom: 1px solid #FAFAFA;
+    padding: 16px;
+}
+
+.friend__header_count {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #C9C9C9;
+    margin-left: 8px;
+
+}
+
+.friend__header_text {
+    margin: 0px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #000000;
+}
