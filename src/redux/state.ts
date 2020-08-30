@@ -3,9 +3,7 @@ import image from '../img/users/1.jpg'
 
 // Action type
 
-const ADD_POST: string = 'ADD_POST';
-const UPDATE_NEW_POST_TEXT: string = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_NEW_MESSAGE_BODY: string = 'UPDATE-NEW-POST-TEXT';
+
 
 
 export type postDataType = {
@@ -65,6 +63,45 @@ export type RootStateType = {
     sideBar: sideBarType
 }
 
+
+// Actions
+
+
+enum cons {
+    ADD_POST = 'ADD_POST',
+    UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
+    UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-POST-TEXT',
+}
+
+export const addPostAC = () => {
+    return {
+        type: cons.ADD_POST,
+    }
+};
+
+export const changeNewTextAC = (newText: string) => {
+    return {
+        type: cons.UPDATE_NEW_POST_TEXT,
+        newText: newText,
+    }
+}
+
+export const changeNewMessageBodyAC = (newMessage: string) => {
+    return {
+        type: cons.UPDATE_NEW_MESSAGE_BODY,
+        newMessage: newMessage,
+    }
+}
+
+
+export type ActionsType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof changeNewTextAC>
+    | ReturnType<typeof changeNewMessageBodyAC>
+
+// export type ActionsType = addPostACType | changeNewTextACType | changeNewMessageBodyACType
+
+
 export type StoreType = {
     _state: RootStateType
     _onChange: () => void
@@ -73,11 +110,19 @@ export type StoreType = {
     dispatch: (action: ActionsType) => void
 }
 
-export type ActionsType =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof changeNewTextAC>
-    | ReturnType<typeof changeNewMessageBodyAC>
-
+// type addPostACType = {
+//     type: string
+// }
+//
+// type changeNewTextACType = {
+//     type: string,
+//     newText: string
+// }
+//
+// type changeNewMessageBodyACType = {
+//     type: string,
+//     newMessage: string
+// }
 
 
 const store: StoreType = {
@@ -211,7 +256,7 @@ const store: StoreType = {
         return this._state;
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === cons.ADD_POST) {
             const newPost: postDataType = {
                 id: v1(),
                 message: this._state.profilePage.postText,
@@ -220,10 +265,10 @@ const store: StoreType = {
             this._state.profilePage.postData.push(newPost);
             this._state.profilePage.postText = '';
             this._onChange();
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === cons.UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.postText = action.newText;
             this._onChange();
-        } else if (action.type === 'UPDATE_NEW_MESSAGE_BODY') {
+        } else if (action.type === cons.UPDATE_NEW_MESSAGE_BODY) {
             this._state.dialogsPage.newMessageBody = action.newMessage;
             this._onChange();
         }
@@ -231,27 +276,7 @@ const store: StoreType = {
 }
 
 
-// Actions
 
-export const addPostAC = () => {
-    return {
-        type: ADD_POST
-    } as const
-};
-
-export const changeNewTextAC = (newText: string) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: newText
-    } as const
-}
-
-export const changeNewMessageBodyAC = (newMessage: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_BODY,
-        newMessage: newMessage
-    } as const
-}
 
 export default store
 
