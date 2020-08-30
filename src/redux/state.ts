@@ -3,9 +3,6 @@ import image from '../img/users/1.jpg'
 
 // Action type
 
-
-
-
 export type postDataType = {
     id: string,
     message: string,
@@ -65,42 +62,61 @@ export type RootStateType = {
 
 
 // Actions
-
-
 enum cons {
     ADD_POST = 'ADD_POST',
     UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
     UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-POST-TEXT',
 }
 
+// export const addPostAC = () => {
+//     return {
+//         type: cons.ADD_POST,
+//     } as const
+// };
+//
+// export const changeNewTextAC = (newText: string) => {
+//     return {
+//         type: cons.UPDATE_NEW_POST_TEXT,
+//         newText: newText,
+//     } as const
+// }
+//
+// export const changeNewMessageBodyAC = (newMessage: string) => {
+//     return {
+//         type: cons.UPDATE_NEW_MESSAGE_BODY,
+//         newMessage: newMessage,
+//     } as const
+// }
+//
+
+
+
 export const addPostAC = () => {
     return {
-        type: cons.ADD_POST,
-    }
+        type: 'ADD_POST',
+    } as const
 };
 
 export const changeNewTextAC = (newText: string) => {
     return {
-        type: cons.UPDATE_NEW_POST_TEXT,
+        type: 'UPDATE_NEW_POST_TEXT',
         newText: newText,
-    }
+    } as const
 }
 
 export const changeNewMessageBodyAC = (newMessage: string) => {
     return {
-        type: cons.UPDATE_NEW_MESSAGE_BODY,
+        type: 'UPDATE_NEW_MESSAGE_BODY',
         newMessage: newMessage,
-    }
+    } as const
 }
 
+export type ActionsType = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC> | ReturnType<typeof changeNewMessageBodyAC>
 
-export type ActionsType =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof changeNewTextAC>
-    | ReturnType<typeof changeNewMessageBodyAC>
-
-// export type ActionsType = addPostACType | changeNewTextACType | changeNewMessageBodyACType
-
+// export type ActionsType = {
+//     type: cons,
+//     [key : string] : string,
+// }
 
 export type StoreType = {
     _state: RootStateType
@@ -109,20 +125,6 @@ export type StoreType = {
     getState: () => RootStateType
     dispatch: (action: ActionsType) => void
 }
-
-// type addPostACType = {
-//     type: string
-// }
-//
-// type changeNewTextACType = {
-//     type: string,
-//     newText: string
-// }
-//
-// type changeNewMessageBodyACType = {
-//     type: string,
-//     newMessage: string
-// }
 
 
 const store: StoreType = {
@@ -255,8 +257,8 @@ const store: StoreType = {
     getState() {
         return this._state;
     },
-    dispatch(action) {
-        if (action.type === cons.ADD_POST) {
+    dispatch(action ) {
+        if (action.type === 'ADD_POST') {
             const newPost: postDataType = {
                 id: v1(),
                 message: this._state.profilePage.postText,
@@ -265,10 +267,10 @@ const store: StoreType = {
             this._state.profilePage.postData.push(newPost);
             this._state.profilePage.postText = '';
             this._onChange();
-        } else if (action.type === cons.UPDATE_NEW_POST_TEXT) {
+        } else if (action.type === 'UPDATE_NEW_POST_TEXT') {
             this._state.profilePage.postText = action.newText;
             this._onChange();
-        } else if (action.type === cons.UPDATE_NEW_MESSAGE_BODY) {
+        } else if (action.type === 'UPDATE_NEW_MESSAGE_BODY') {
             this._state.dialogsPage.newMessageBody = action.newMessage;
             this._onChange();
         }
