@@ -6,11 +6,12 @@ import Profile from './components/Profile/Profile';
 import Dialogs from './components/Dialogs/Dialogs';
 import HeaderBg from './components/Headers/HeaderBg/HeaderBg';
 import {Route, BrowserRouter} from 'react-router-dom';
-import {StoreType} from "./redux/state";
+import {StoreType} from "./redux/store";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 type AppType = {
-    store: StoreType
+    store: any
 }
 
 
@@ -25,10 +26,17 @@ const App: React.FC<AppType> = ({store}) => {
                 <Header/>
                 <Sidebar sidebar={state.sideBar}/>
                 <div className={'app-wrapper-content'}>
-                    <Route exact path={'/profile'} render={() => <Profile profile={state.profilePage}
-                                                                          dispatch={store.dispatch.bind(store)}
-                                                                          newPostText={state.profilePage.postText}/>}/>
-                    <Route path={'/dialogs'} render={() => <Dialogs dialogs={state.dialogsPage}/>}/>
+                    <Route exact path={'/profile'}
+                           render={() =>
+                        <Profile profile={state.profilePage}
+                                 dispatch={store.dispatch.bind(store)}
+                                 newPostText={state.profilePage.postText}/>}/>
+                    <Route path={'/dialogs'}
+                           render={() =>
+                        <DialogsContainer dialogs={state.dialogsPage}
+                                          dispatch={store.dispatch.bind(store)}
+                                          newMessageText={state.dialogsPage.newMessageBody}/>
+                    }/>
                 </div>
             </div>
         </BrowserRouter>

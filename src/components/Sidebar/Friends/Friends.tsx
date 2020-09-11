@@ -2,7 +2,7 @@ import React from 'react'
 import '../Sidebar.css'
 import FriendList from "./FriendList/FriendList";
 import FriendHeader from "./FriendHeader/FriendHeader";
-import {allFriendsType} from "../../../redux/state";
+import {allFriendsType} from "../../../redux/store";
 
 type FriendsType = {
     Friends: allFriendsType

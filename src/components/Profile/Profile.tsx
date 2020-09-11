@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import classes from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import ChatBlock from "../ChatBlock/ChatBlock";
-import {profilePageType, ActionsType} from "../../redux/state";
+import ChatBlockContainer from "../ChatBlock/ChatBlockContainer";
+import {profilePageType, ActionsType} from "../../redux/store";
 
 type ProfileType = {
     profile: profilePageType
@@ -20,7 +20,7 @@ const Profile: React.FC<ProfileType> = ({profile, newPostText, dispatch}) => {
             <div className={classes.content__description}>
                 <ProfileInfo/>
             </div>
-            <ChatBlock newPostText={newPostText} dispatch={dispatch}/>
+            <ChatBlockContainer newPostText={newPostText} dispatch={dispatch}/>
             <MyPosts postData={profile.postData}/>
         </div>
     );

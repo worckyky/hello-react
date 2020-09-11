@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from "./Navigation.module.css";
 import SideBarElement from "./SideBarElement/SideBarElement";
-import {NavigationElementType} from "../../../redux/state";
+import {NavigationElementType} from "../../../redux/store";
 import Icons from "../../../img/NavigationIcons";
 import '../Sidebar.css'
 

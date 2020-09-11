@@ -1,23 +1,21 @@
 import React, {ChangeEvent, ChangeEventHandler} from "react";
 import classes from './chatblock.module.css';
-import {ActionsType, addPostAC, changeNewTextAC} from "../../redux/state";
 
 
 type chatType = {
     newPostText: string
-    dispatch: (action: ActionsType) => void
+    addPost: () => void
+    textAreaChange: (text: string) => void
 };
 
 
-const ChatBlock: React.FC<chatType> = ({newPostText,dispatch}) => {
-
-    const textareaRef = React.createRef<HTMLTextAreaElement>();
+const ChatBlock: React.FC<chatType> = ({newPostText,addPost, textAreaChange}) => {
 
     const addPostHandler = () => {
-        dispatch(addPostAC())
+        addPost();
     };
     const textAreaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(changeNewTextAC(e.currentTarget.value))
+        textAreaChange(e.currentTarget.value);
     };
 
     return (
@@ -28,7 +26,6 @@ const ChatBlock: React.FC<chatType> = ({newPostText,dispatch}) => {
                       cols={30}
                       rows={10}
                       placeholder={'Set your data'}
-                      ref={textareaRef}
                       onChange={textAreaChangeHandler}
                       value={newPostText}
             />

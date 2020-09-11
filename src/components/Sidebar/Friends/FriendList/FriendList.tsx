@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './FriendList.module.css'
 import FriendListElement from "./FriendListElement/FriendListElement";
-import {friendType} from "../../../../redux/state";
+import {friendType} from "../../../../redux/store";
 
 
 type FriendListType = {

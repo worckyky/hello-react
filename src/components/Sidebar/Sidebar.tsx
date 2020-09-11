@@ -1,6 +1,6 @@
 import React from 'react';
 import Navigation from "./Navigation/Navigation";
-import {sideBarType} from "../../redux/state"
+import {sideBarType} from "../../redux/store"
 import Friends from "./Friends/Friends";
 
 type SidebarBlockType = {

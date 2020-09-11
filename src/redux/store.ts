@@ -1,5 +1,9 @@
 import {v1} from "uuid";
 import image from '../img/users/1.jpg'
+import profileReducer, { addPostAC, changeNewTextAC} from "./profile-reducer";
+import dialogsReducer, {changeNewMessageBodyAC, addNewMessageAC} from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
+import {type} from "os";
 
 // Action type
 
@@ -12,16 +16,16 @@ export type profilePageType = {
     postData: Array<postDataType>
     postText: string
 }
-type usersType = {
+export type usersType = {
     name: string,
     id: number,
     link: string
 }
-type messagesType = {
-    id: number,
+export type messagesType = {
+    id: string,
     text: string
 }
-type dialogDataType = {
+export type dialogDataType = {
     users: Array<usersType>,
     messages: Array<messagesType>
 }
@@ -61,62 +65,12 @@ export type RootStateType = {
 }
 
 
-// Actions
-enum cons {
-    ADD_POST = 'ADD_POST',
-    UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
-    UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-POST-TEXT',
-}
 
-// export const addPostAC = () => {
-//     return {
-//         type: cons.ADD_POST,
-//     } as const
-// };
-//
-// export const changeNewTextAC = (newText: string) => {
-//     return {
-//         type: cons.UPDATE_NEW_POST_TEXT,
-//         newText: newText,
-//     } as const
-// }
-//
-// export const changeNewMessageBodyAC = (newMessage: string) => {
-//     return {
-//         type: cons.UPDATE_NEW_MESSAGE_BODY,
-//         newMessage: newMessage,
-//     } as const
-// }
-//
-
-
-
-export const addPostAC = () => {
-    return {
-        type: 'ADD_POST',
-    } as const
-};
-
-export const changeNewTextAC = (newText: string) => {
-    return {
-        type: 'UPDATE_NEW_POST_TEXT',
-        newText: newText,
-    } as const
-}
-
-export const changeNewMessageBodyAC = (newMessage: string) => {
-    return {
-        type: 'UPDATE_NEW_MESSAGE_BODY',
-        newMessage: newMessage,
-    } as const
-}
-
-export type ActionsType = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC> | ReturnType<typeof changeNewMessageBodyAC>
-
-// export type ActionsType = {
-//     type: cons,
-//     [key : string] : string,
-// }
+export type ActionsType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof changeNewTextAC>
+    | ReturnType<typeof changeNewMessageBodyAC>
+    | ReturnType<typeof addNewMessageAC>
 
 export type StoreType = {
     _state: RootStateType
@@ -155,13 +109,13 @@ const store: StoreType = {
                     link: 'dialogs'
                 }],
                 messages: [{
-                    id: 1,
+                    id: v1(),
                     text: 'Hello my frend'
                 }, {
-                    id: 2,
+                    id: v1(),
                     text: 'Priveat'
                 }, {
-                    id: 3,
+                    id: v1(),
                     text: 'Poka'
                 }]
             },
@@ -257,27 +211,13 @@ const store: StoreType = {
     getState() {
         return this._state;
     },
-    dispatch(action ) {
-        if (action.type === 'ADD_POST') {
-            const newPost: postDataType = {
-                id: v1(),
-                message: this._state.profilePage.postText,
-                likesCount: 0
-            };
-            this._state.profilePage.postData.push(newPost);
-            this._state.profilePage.postText = '';
-            this._onChange();
-        } else if (action.type === 'UPDATE_NEW_POST_TEXT') {
-            this._state.profilePage.postText = action.newText;
-            this._onChange();
-        } else if (action.type === 'UPDATE_NEW_MESSAGE_BODY') {
-            this._state.dialogsPage.newMessageBody = action.newMessage;
-            this._onChange();
-        }
+    dispatch(action) {
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sideBar = sidebarReducer(this._state.sideBar, action);
+        this._onChange();
     }
-}
-
-
+};
 
 
 export default store
