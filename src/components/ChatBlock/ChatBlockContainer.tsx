@@ -16,7 +16,7 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
         addPost: ()  =>  {
             dispatch(addPostAC())
         },
-        textAreaChangeHandler: (text: string) => {
+        textAreaChange: (text: string) => {
             dispatch(changeNewTextAC(text))
         }
 

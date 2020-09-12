@@ -20,14 +20,20 @@ import {ActionsType, RootStateType, dialogPageType} from "../../redux/store";
 
 let mapStateToProps = (state: RootStateType) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsUsers: state.dialogsPage.dialogData.users,
+        messagesUsers: state.dialogsPage.dialogData.messages,
+        newMessageText: state.dialogsPage.newMessageBody
     }
 };
 
 let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
     return {
-        clickHandler: () => dispatch(addNewMessageAC()),
-        changeHandler: (text: string) =>  dispatch(changeNewMessageBodyAC(text))
+        clickHandler: () => {
+            dispatch(addNewMessageAC())
+        },
+        changeHandler: (text: string) =>  {
+            dispatch(changeNewMessageBodyAC(text))
+        }
     }
 }
 

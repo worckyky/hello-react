@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Sidebar from "./Sidebar";
-import {sideBarType} from "../../redux/store";
+import {RootStateType} from "../../redux/store";
 
 
-let mapStateToProps = (state: sideBarType) => {
+let mapStateToProps = (state: RootStateType) => {
     return {
-        sidebar: state
+        sidebar: state.sideBar
     }
 }
 

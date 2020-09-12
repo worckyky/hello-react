@@ -19,9 +19,10 @@ const App = () => {
                 <div className={'app-wrapper-content'}>
                     <Route exact path={'/profile'}
                            render={() =>
-                        <Profile />}/>
+                               <Profile/>}/>
                     <Route path={'/dialogs'}
-                           render={() => <DialogsContainer />}/>
+                           render={() =>
+                               <DialogsContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>
