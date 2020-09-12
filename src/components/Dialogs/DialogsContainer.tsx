@@ -1,35 +1,36 @@
-import React from 'react';
-import {ActionsType} from "../../redux/store";
-import {dialogPageType} from "../../redux/store";
+import React, {Dispatch} from 'react';
 import {addNewMessageAC, changeNewMessageBodyAC} from '../../redux/dialogs-reducer';
 import Dialogs from "./Dialogs";
 import {connect} from 'react-redux'
-
-type DialogsType = {
-    dialogs: dialogPageType
-    dispatch: (action: ActionsType) => void
-    newMessageText: string
-}
-
-const DialogsContainer: React.FC<DialogsType> = ({dialogs, dispatch, newMessageText}) => {
+import {ActionsType, RootStateType, dialogPageType} from "../../redux/store";
 
 
-    const onClickHandler = () => {
-        dispatch(addNewMessageAC())
-    };
 
-    const onChangeHandler = (text: string) => {
-        dispatch(changeNewMessageBodyAC(text))
-    };
 
-    return <Dialogs dialogsUsers={dialogs.dialogData.users}
-                    messagesUsers={dialogs.dialogData.messages}
-                    newMessageText={newMessageText}
-                    clickHandler={onClickHandler}
-                    changeHandler={onChangeHandler}/>
+// type MapDispatchPropsType = (dispatch: Dispatch<ActionsType>) => {
+//     clickHandler: () => void,
+//     changeHandler: (text: string) => void
+// }
+//
+//
+// type MapStateToPropsType = (state: RootStateType) => {
+//     dialogsPage: dialogPageType
+// }
+
+
+let mapStateToProps = (state: RootStateType) => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
 };
 
+let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
+    return {
+        clickHandler: () => dispatch(addNewMessageAC()),
+        changeHandler: (text: string) =>  dispatch(changeNewMessageBodyAC(text))
+    }
+}
 
-const SuperDialogsContainer = connect()();
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;

@@ -1,26 +1,28 @@
-import React, {ChangeEvent, ChangeEventHandler} from "react";
-import {ActionsType} from "../../redux/store";
-import { addPostAC, changeNewTextAC } from "../../redux/profile-reducer";
+import React, { Dispatch } from "react";
+import { changeNewTextAC, addPostAC } from "../../redux/profile-reducer";
 import ChatBlock from "./ChatBlock";
+import {connect} from 'react-redux'
+import {ActionsType, profilePageType} from "../../redux/store";
 
 
-type chatType = {
-    newPostText: string
-    dispatch: (action: ActionsType) => void
-};
+let mapStateToProps = (state: profilePageType) => {
+    return {
+        newPostText: state.postText
+    }
+}
 
+let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
+    return {
+        addPost: ()  =>  {
+            dispatch(addPostAC())
+        },
+        textAreaChangeHandler: (text: string) => {
+            dispatch(changeNewTextAC(text))
+        }
 
-const ChatBlockContainer: React.FC<chatType> = ({newPostText,dispatch}) => {
+    }
+}
 
-    const addPostHandler = () => {
-        dispatch(addPostAC())
-    };
-
-    const textAreaChangeHandler = (text: string) => {
-        dispatch(changeNewTextAC(text))
-    };
-
-    return <ChatBlock addPost={addPostHandler} textAreaChange={textAreaChangeHandler} newPostText={newPostText}/>
-};
+const ChatBlockContainer = connect(mapStateToProps, mapDispatchToProps)(ChatBlock);
 
 export default ChatBlockContainer
