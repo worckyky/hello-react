@@ -1,9 +1,9 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import {ActionsType} from "../../redux/store";
 import {dialogPageType} from "../../redux/store";
 import {addNewMessageAC, changeNewMessageBodyAC} from '../../redux/dialogs-reducer';
 import Dialogs from "./Dialogs";
-
+import {connect} from 'react-redux'
 
 type DialogsType = {
     dialogs: dialogPageType
@@ -28,5 +28,8 @@ const DialogsContainer: React.FC<DialogsType> = ({dialogs, dispatch, newMessageT
                     clickHandler={onClickHandler}
                     changeHandler={onChangeHandler}/>
 };
+
+
+const SuperDialogsContainer = connect()();
 
 export default DialogsContainer;
