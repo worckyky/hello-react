@@ -50,18 +50,24 @@ let initialState: dialogPageType = {
 }
 
 const dialogsReducer = (state: dialogPageType = initialState, action: ActionsType) => {
+
+
     switch (action.type) {
         case CONS.ADD_NEW_MESSAGE_BODY:
-            const newMessage: messagesType = {
-                id: v1(),
-                text: state.newMessageBody
-            };
-            state.dialogData.messages.push(newMessage);
-            state.newMessageBody = '';
-            return state;
+            return {...state,
+                dialogData: {...state.dialogData,
+                    messages: [...state.dialogData.messages, {
+                        id: v1(),
+                        text: state.newMessageBody
+                    }]
+                },
+                newMessageBody: ''
+            }
+
         case CONS.UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.newBody;
-            return state;
+            return {
+                ...state, newMessageBody: action.newBody
+            }
         default:
             return state;
     }

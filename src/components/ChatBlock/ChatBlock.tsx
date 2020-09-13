@@ -3,13 +3,13 @@ import classes from './chatblock.module.css';
 
 
 type chatType = {
-    newPostText: string
+    PostText: string
     addPost: () => void
     textAreaChange: (text: string) => void
 };
 
 
-const ChatBlock: React.FC<chatType> = ({newPostText,addPost, textAreaChange}) => {
+const ChatBlock: React.FC<chatType> = ({PostText,addPost, textAreaChange}) => {
 
     const addPostHandler = () => {
         addPost();
@@ -27,7 +27,7 @@ const ChatBlock: React.FC<chatType> = ({newPostText,addPost, textAreaChange}) =>
                       rows={10}
                       placeholder={'Set your data'}
                       onChange={textAreaChangeHandler}
-                      value={newPostText}
+                      value={PostText}
             />
             <button onClick={addPostHandler}>Send</button>
         </div>

@@ -7,9 +7,9 @@ import {ActionsType, profilePageType} from "../../redux/store";
 
 let mapStateToProps = (state: profilePageType) => {
     return {
-        newPostText: state.postText
+        PostText: state.postText
     }
-}
+};
 
 let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
     return {
@@ -21,7 +21,7 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
         }
 
     }
-}
+};
 
 const ChatBlockContainer = connect(mapStateToProps, mapDispatchToProps)(ChatBlock);
 

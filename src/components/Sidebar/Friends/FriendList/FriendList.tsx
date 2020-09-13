@@ -13,7 +13,7 @@ const FriendList: React.FC<FriendListType> = ({FriendList}) => {
     return (
         <ul className={s.friendlist}>
             {FriendList.map(friend => {
-                return <FriendListElement urlLink={friend.photo} nickName={friend.name} id={friend.id}/>
+                return <FriendListElement urlLink={friend.photo} nickName={friend.name} id={friend.id} key={friend.id}/>
             })}
 
         </ul>

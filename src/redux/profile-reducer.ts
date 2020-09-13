@@ -23,7 +23,6 @@ export const changeNewTextAC = (newText: string) => {
 };
 
 
-
 let initialState: profilePageType = {
     postData: [
         {id: v1(), message: 'Hi, how are you?', likesCount: 12},
@@ -33,24 +32,29 @@ let initialState: profilePageType = {
         {id: v1(), message: 'Hi, how are you?', likesCount: 17},
     ],
     postText: ''
-}
-
+};
 
 
 const profileReducer = (state: profilePageType = initialState, action: ActionsType) => {
+
+
     switch (action.type) {
         case CONS.ADD_POST:
-            const newPost: postDataType = {
-                id: v1(),
-                message: state.postText,
-                likesCount: 0
+            return {
+                ...state,
+                postData: [...state.postData, {
+                    id: v1(),
+                    message: state.postText,
+                    likesCount: 0
+                }],
+                postText: ''
             };
-            state.postData.push(newPost);
-            state.postText = '';
-            return state;
+
         case CONS.UPDATE_NEW_POST_TEXT:
-            state.postText = action.newText;
-            return state;
+            return {
+                ...state,
+                postText: action.newText
+            };
         default:
             return state;
     }

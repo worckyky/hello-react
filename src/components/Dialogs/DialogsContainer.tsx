@@ -2,20 +2,8 @@ import React, {Dispatch} from 'react';
 import {addNewMessageAC, changeNewMessageBodyAC} from '../../redux/dialogs-reducer';
 import Dialogs from "./Dialogs";
 import {connect} from 'react-redux'
-import {ActionsType, RootStateType, dialogPageType} from "../../redux/store";
+import {ActionsType, RootStateType} from "../../redux/store";
 
-
-
-
-// type MapDispatchPropsType = (dispatch: Dispatch<ActionsType>) => {
-//     clickHandler: () => void,
-//     changeHandler: (text: string) => void
-// }
-//
-//
-// type MapStateToPropsType = (state: RootStateType) => {
-//     dialogsPage: dialogPageType
-// }
 
 
 let mapStateToProps = (state: RootStateType) => {
