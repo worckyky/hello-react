@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import store, {postDataType, ActionsType, profilePageType} from "./store";
+import {postDataType, ActionsType, profilePageType} from "./store";
 
 
 enum CONS {
@@ -36,7 +36,6 @@ let initialState: profilePageType = {
 
 
 const profileReducer = (state: profilePageType = initialState, action: ActionsType) => {
-
 
     switch (action.type) {
         case CONS.ADD_POST:

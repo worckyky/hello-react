@@ -3,7 +3,7 @@ import image from "../img/users/1.jpg";
 import {v1} from "uuid";
 
 
-let initialState:sideBarType = {
+let initialState: sideBarType = {
     navigation: [{
         text: 'Profile',
         link: '/profile',
@@ -25,10 +25,15 @@ let initialState:sideBarType = {
         icon: 'Music',
         id: 4,
     }, {
+        text: 'Find User',
+        link: '/users',
+        icon: 'Music',
+        id: 5,
+    }, {
         text: 'Settings',
         link: '/settings',
         icon: 'Settings',
-        id: 5,
+        id: 6,
     },],
     friends: {
         allFriends: [{

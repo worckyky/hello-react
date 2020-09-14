@@ -2,12 +2,12 @@ import React, { Dispatch } from "react";
 import { changeNewTextAC, addPostAC } from "../../redux/profile-reducer";
 import ChatBlock from "./ChatBlock";
 import {connect} from 'react-redux'
-import {ActionsType, profilePageType} from "../../redux/store";
+import {ActionsType,  RootStateType} from "../../redux/store";
 
 
-let mapStateToProps = (state: profilePageType) => {
+let mapStateToProps = (state: RootStateType) => {
     return {
-        PostText: state.postText
+        PostText: state.profilePage.postText
     }
 };
 
