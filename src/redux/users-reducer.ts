@@ -27,47 +27,7 @@ export type allUsersType = {
 
 
 let initialState: allUsersType = {
-    users: [{
-        id: v1(),
-        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
-        fullName: 'Kita',
-        followed: true,
-        status: 'im a boss',
-        location: {
-            city: 'Minsk',
-            country: 'Russia'
-        },
-    }, {
-        id: v1(),
-        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
-        fullName: 'Tolya',
-        followed: false,
-        status: 'im a boss',
-        location: {
-            city: 'Minsk',
-            country: 'Russia'
-        },
-    }, {
-        id: v1(),
-        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
-        fullName: 'Dima',
-        followed: false,
-        status: 'im a boss',
-        location: {
-            city: 'Minsk',
-            country: 'Russia'
-        },
-    }, {
-        id: v1(),
-        photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
-        fullName: 'Vanya',
-        followed: true,
-        status: 'im a boss',
-        location: {
-            city: 'Minsk',
-            country: 'Russia'
-        },
-    }]
+    users: []
 };
 
 
@@ -85,7 +45,7 @@ export const UnFollowAC = (userID: string) => {
     } as const
 };
 
-export const setUserAC = (users: []) => {
+export const setUserAC = (users: Array<userType>) => {
     return {
         type: CONS.SET_USER,
         users: users
@@ -103,14 +63,14 @@ const usersReducer = (state:allUsersType = initialState, action: ActionsType) =>
         case CONS.FOLLOW:
             return (
                 {
-                    ...state, users: [...state.users].map(user => {
+                    ...state, users: state.users.map(user => {
                         if (user.id === action.userID) {
                             return {...user, followed: true}
                         }
                         return user
                     })
                 }
-            )
+            );
         case CONS.UNFOLLOW:
             return (
                 {
@@ -121,12 +81,13 @@ const usersReducer = (state:allUsersType = initialState, action: ActionsType) =>
                         return user
                     })
                 }
-            )
+            );
         case CONS.SET_USER: {
-            return  {...state , users: [...state.users, ...action.users]}
+            return  {...state , users: [...state.users, ...action.users]};
         }
+        default:
+            return state
     }
-    return state
 }
 
 

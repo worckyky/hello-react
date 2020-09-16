@@ -1,20 +1,65 @@
 import React from 'react';
 import s from './Users.module.css'
 import {allUsersType, userType} from '../../redux/users-reducer';
+import {v1} from "uuid";
 
 
 type usersType = {
-    usersPage: allUsersType
+    users:  Array<userType>
     follow: (userID: string) => void
     unFollow: (userID: string) => void
-    setUsers: (users: []) => void
+    setUsers: (users: Array<userType>) => void
 }
 
-const Users: React.FC<usersType> = ({usersPage, follow, unFollow, setUsers}) => {
+const Users: React.FC<usersType> = ({users, follow, unFollow, setUsers}) => {
+    if (users.length === 0) {
+        setUsers([{
+            id: v1(),
+            photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
+            fullName: 'Kita',
+            followed: true,
+            status: 'im a boss',
+            location: {
+                city: 'Minsk',
+                country: 'Russia'
+            },
+        }, {
+            id: v1(),
+            photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
+            fullName: 'Tolya',
+            followed: false,
+            status: 'im a boss',
+            location: {
+                city: 'Minsk',
+                country: 'Russia'
+            },
+        }, {
+            id: v1(),
+            photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
+            fullName: 'Dima',
+            followed: false,
+            status: 'im a boss',
+            location: {
+                city: 'Minsk',
+                country: 'Russia'
+            },
+        }, {
+            id: v1(),
+            photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
+            fullName: 'Vanya',
+            followed: true,
+            status: 'im a boss',
+            location: {
+                city: 'Minsk',
+                country: 'Russia'
+            },
+        }]);
+    }
+
     return (
         <div>
             {
-                usersPage.users.map(u => {
+                users.map(u => {
                     return (
                         <div key={u.id}>
                             <span>
@@ -23,7 +68,11 @@ const Users: React.FC<usersType> = ({usersPage, follow, unFollow, setUsers}) => 
                                         <img src={u.photoUrl} alt=""/></div>
                                     </div>
                                     <div>
-                                        {u.followed ? <button onClick={() => {follow(u.id)}}>Follow</button> : <button onClick={() => {unFollow(u.id)}}>Unfollow</button>}
+                                        {!u.followed ? <button onClick={() => {
+                                            follow(u.id)
+                                        }}>Follow</button> : <button onClick={() => {
+                                            unFollow(u.id)
+                                        }}>Unfollow</button>}
                                     </div>
                             </span>
                             <span>
