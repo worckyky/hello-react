@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './Users.module.css'
-import {allUsersType, userType} from '../../redux/users-reducer';
-import {v1} from "uuid";
-
+import {userType} from '../../redux/users-reducer';
+import axios from 'axios';
+import userPhoto from '../../assets/images/user.jpg'
 
 type usersType = {
-    users:  Array<userType>
+    users: Array<userType>
     follow: (userID: string) => void
     unFollow: (userID: string) => void
     setUsers: (users: Array<userType>) => void
@@ -13,59 +13,25 @@ type usersType = {
 
 const Users: React.FC<usersType> = ({users, follow, unFollow, setUsers}) => {
     if (users.length === 0) {
-        setUsers([{
-            id: v1(),
-            photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
-            fullName: 'Kita',
-            followed: true,
-            status: 'im a boss',
-            location: {
-                city: 'Minsk',
-                country: 'Russia'
-            },
-        }, {
-            id: v1(),
-            photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
-            fullName: 'Tolya',
-            followed: false,
-            status: 'im a boss',
-            location: {
-                city: 'Minsk',
-                country: 'Russia'
-            },
-        }, {
-            id: v1(),
-            photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
-            fullName: 'Dima',
-            followed: false,
-            status: 'im a boss',
-            location: {
-                city: 'Minsk',
-                country: 'Russia'
-            },
-        }, {
-            id: v1(),
-            photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Dmitry_Nagiev_2017_4.jpg',
-            fullName: 'Vanya',
-            followed: true,
-            status: 'im a boss',
-            location: {
-                city: 'Minsk',
-                country: 'Russia'
-            },
-        }]);
+        axios
+            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                setUsers(response.data.items)
+            })
     }
+
 
     return (
         <div>
             {
                 users.map(u => {
                     return (
-                        <div key={u.id}>
+                        <div key={u.id} className={s.users__container}>
                             <span>
                                 <div>
                                     <div>
-                                        <img src={u.photoUrl} alt=""/></div>
+                                        <img src={!u.photo?.small ? userPhoto : u.photo.small }
+                                             alt=""/></div>
                                     </div>
                                     <div>
                                         {!u.followed ? <button onClick={() => {
@@ -77,12 +43,12 @@ const Users: React.FC<usersType> = ({users, follow, unFollow, setUsers}) => {
                             </span>
                             <span>
                                 <span>
-                                    <div>{u.fullName}</div>
+                                    <div>{u.name}</div>
                                     <div>{u.status}</div>
                                 </span>
                                 <span>
-                                    <div>{u.location.country}</div>
-                                    <div>{u.location.city}</div>
+                                    <div>{'u.location.country'}</div>
+                                    <div>{'u.location.city'}</div>
                                 </span>
                             </span>
                         </div>

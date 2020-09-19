@@ -7,18 +7,18 @@ enum CONS {
     SET_USER = 'SET_USER'
 }
 
-type locationType = {
-    city: string,
-    country: string
-}
+type photoType = string | null | undefined
 
+type photosType = {
+    large: photoType
+    small: photoType
+}
 export type userType = {
     id: string,
-    photoUrl: string
-    fullName: string,
+    photo: photosType | null | undefined
+    name: string,
     followed: boolean,
     status: string,
-    location: locationType
 }
 
 export type allUsersType = {
@@ -53,12 +53,11 @@ export const setUserAC = (users: Array<userType>) => {
 };
 
 
-
 // export type UsersPageActionType =
 //     ReturnType<typeof FollowAC> | ReturnType<typeof UnFollowAC> | ReturnType<typeof setUserAC>
 
 
-const usersReducer = (state:allUsersType = initialState, action: ActionsType) => {
+const usersReducer = (state: allUsersType = initialState, action: ActionsType) => {
     switch (action.type) {
         case CONS.FOLLOW:
             return (
@@ -83,7 +82,7 @@ const usersReducer = (state:allUsersType = initialState, action: ActionsType) =>
                 }
             );
         case CONS.SET_USER: {
-            return  {...state , users: [...state.users, ...action.users]};
+            return {...state, users: [...state.users, ...action.users]};
         }
         default:
             return state
