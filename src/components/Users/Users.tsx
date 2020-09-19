@@ -11,26 +11,35 @@ type usersType = {
     setUsers: (users: Array<userType>) => void
 }
 
-const Users: React.FC<usersType> = ({users, follow, unFollow, setUsers}) => {
-    if (users.length === 0) {
+
+class Users extends React.Component<usersType> {
+
+    constructor(props: usersType) {
+        super(props);
         axios
             .get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
-                setUsers(response.data.items)
+                this.props.setUsers(response.data.items)
             })
     }
 
+    getUsers = () => {
 
-    return (
-        <div>
-            {
-                users.map(u => {
-                    return (
-                        <div key={u.id} className={s.users__container}>
+    };
+
+    render() {
+        const {follow, unFollow, users} = this.props;
+        return (
+            <div>
+                <button onClick={this.getUsers}>Get users</button>
+                {
+                    users.map(u => {
+                        return (
+                            <div key={u.id} className={s.users__container}>
                             <span>
                                 <div>
                                     <div>
-                                        <img src={!u.photo?.small ? userPhoto : u.photo.small }
+                                        <img src={!u.photo?.small ? userPhoto : u.photo.small}
                                              alt=""/></div>
                                     </div>
                                     <div>
@@ -41,7 +50,7 @@ const Users: React.FC<usersType> = ({users, follow, unFollow, setUsers}) => {
                                         }}>Unfollow</button>}
                                     </div>
                             </span>
-                            <span>
+                                <span>
                                 <span>
                                     <div>{u.name}</div>
                                     <div>{u.status}</div>
@@ -51,12 +60,15 @@ const Users: React.FC<usersType> = ({users, follow, unFollow, setUsers}) => {
                                     <div>{'u.location.city'}</div>
                                 </span>
                             </span>
-                        </div>
-                    )
-                })
-            }
-        </div>
-    )
-};
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        )
+    }
+
+}
+
 
 export default Users
