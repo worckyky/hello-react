@@ -1,10 +1,11 @@
-import {v1} from "uuid";
 import {ActionsType} from "./store";
 
 enum CONS {
     FOLLOW = 'FOLLOW',
     UNFOLLOW = 'UNFOLLOW',
-    SET_USER = 'SET_USER'
+    SET_USER = 'SET_USER',
+    SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
+    SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
 }
 
 type photoType = string | null | undefined
@@ -22,13 +23,14 @@ export type userType = {
 }
 
 export type allUsersType = {
-    users: Array<userType>
+    users: Array<userType>,
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
 }
 
 
-let initialState: allUsersType = {
-    users: []
-};
+
 
 
 export const FollowAC = (userID: string) => {
@@ -52,6 +54,27 @@ export const setUserAC = (users: Array<userType>) => {
     } as const
 };
 
+export const setCurrentPageAC = (page: number) => {
+    return {
+        type: CONS.SET_CURRENT_PAGE,
+        page: page
+    } as const
+}
+
+export const setTotalCountAC = (totalCount: number) => {
+    return {
+        type: CONS.SET_TOTAL_COUNT,
+        totalCount: totalCount
+    } as const
+}
+
+
+let initialState: allUsersType = {
+    users: [],
+    pageSize: 100,
+    totalUsersCount: 0,
+    currentPage: 1
+};
 
 // export type UsersPageActionType =
 //     ReturnType<typeof FollowAC> | ReturnType<typeof UnFollowAC> | ReturnType<typeof setUserAC>
@@ -82,7 +105,17 @@ const usersReducer = (state: allUsersType = initialState, action: ActionsType) =
                 }
             );
         case CONS.SET_USER: {
-            return {...state, users: [...state.users, ...action.users]};
+            return {...state, users: [...action.users]};
+        }
+        case CONS.SET_CURRENT_PAGE: {
+            return {
+                ...state, currentPage: action.page
+            }
+        }
+        case CONS.SET_TOTAL_COUNT: {
+            return {
+                ...state, totalUsersCount: action.totalCount
+            }
         }
         default:
             return state

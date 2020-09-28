@@ -6,32 +6,64 @@ import userPhoto from '../../assets/images/user.jpg'
 
 type usersType = {
     users: Array<userType>
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
     follow: (userID: string) => void
     unFollow: (userID: string) => void
     setUsers: (users: Array<userType>) => void
+    setPage: (page: number) => void
+    setTotalCount: (totalCount: number) => void
 }
 
 
 class Users extends React.Component<usersType> {
 
-    constructor(props: usersType) {
-        super(props);
+    componentDidMount(): void {
         axios
-            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalCount(response.data.totalCount)
+            })
+    }
+
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setPage(pageNumber);
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
             })
     }
 
-    getUsers = () => {
-
-    };
-
     render() {
-        const {follow, unFollow, users} = this.props;
+        const {follow, unFollow, users, totalUsersCount, pageSize, currentPage} = this.props;
+
+        let pagesCount: number = Math.ceil(totalUsersCount / pageSize);
+
+
+        let pages = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
+
         return (
             <div>
-                <button onClick={this.getUsers}>Get users</button>
+                <div>
+                    {
+                        pages.map(p => {
+                            return <span className={currentPage === p ? s.selected_page : ''} onClick={() =>
+                                {
+                                    this.onPageChanged(p)
+                                }
+                            }>{p}</span>
+                        })
+                    }
+                </div>
+
                 {
                     users.map(u => {
                         return (

@@ -1,7 +1,15 @@
 import profileReducer, {addPostAC, changeNewTextAC} from "./profile-reducer";
 import dialogsReducer, {changeNewMessageBodyAC, addNewMessageAC} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
-import {allUsersType, userType, FollowAC, UnFollowAC, setUserAC} from "./users-reducer";
+import {
+    allUsersType,
+    userType,
+    FollowAC,
+    UnFollowAC,
+    setUserAC,
+    setCurrentPageAC,
+    setTotalCountAC
+} from "./users-reducer";
 
 // Action type
 
@@ -72,6 +80,8 @@ export type ActionsType =
     | ReturnType<typeof FollowAC>
     | ReturnType<typeof UnFollowAC>
     | ReturnType<typeof setUserAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalCountAC>
 
 
 // export type StoreType = {
