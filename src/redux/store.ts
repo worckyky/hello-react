@@ -8,7 +8,7 @@ import {
     UnFollowAC,
     setUserAC,
     setCurrentPageAC,
-    setTotalCountAC
+    setTotalCountAC, toggleIsFetchingAC
 } from "./users-reducer";
 
 // Action type
@@ -82,7 +82,7 @@ export type ActionsType =
     | ReturnType<typeof setUserAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalCountAC>
-
+    | ReturnType<typeof toggleIsFetchingAC>
 
 // export type StoreType = {
 //     _state: RootStateType

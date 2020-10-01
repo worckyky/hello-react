@@ -5,21 +5,27 @@ enum CONS {
     UNFOLLOW = 'UNFOLLOW',
     SET_USER = 'SET_USER',
     SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
-    SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
+    SET_TOTAL_COUNT = 'SET_TOTAL_COUNT',
+    TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 }
 
-type photoType = string | null | undefined
+// type photoType = string | null | undefined
+//
+// type photosType = {
+//     large: photoType
+//     small: photoType
+// }
 
-type photosType = {
-    large: photoType
-    small: photoType
-}
 export type userType = {
     id: string,
-    photo: photosType | null | undefined
+    photos: {
+        small: string,
+        large: string
+    }
     name: string,
     followed: boolean,
     status: string,
+
 }
 
 export type allUsersType = {
@@ -27,6 +33,7 @@ export type allUsersType = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number
+    isFetching: boolean
 }
 
 
@@ -67,13 +74,19 @@ export const setTotalCountAC = (totalCount: number) => {
         totalCount: totalCount
     } as const
 }
-
+export const toggleIsFetchingAC = (isFetching: boolean) => {
+    return {
+        type: CONS.TOGGLE_IS_FETCHING,
+        isFetching
+    } as const
+}
 
 let initialState: allUsersType = {
     users: [],
     pageSize: 100,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 };
 
 // export type UsersPageActionType =
@@ -115,6 +128,11 @@ const usersReducer = (state: allUsersType = initialState, action: ActionsType) =
         case CONS.SET_TOTAL_COUNT: {
             return {
                 ...state, totalUsersCount: action.totalCount
+            }
+        }
+        case CONS.TOGGLE_IS_FETCHING: {
+            return {
+                ...state, isFetching: action.isFetching
             }
         }
         default:
