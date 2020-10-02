@@ -40,41 +40,41 @@ export type allUsersType = {
 
 
 
-export const FollowAC = (userID: string) => {
+export const Follow = (userID: string) => {
     return {
         type: CONS.FOLLOW,
         userID: userID
     } as const
 };
 
-export const UnFollowAC = (userID: string) => {
+export const UnFollow = (userID: string) => {
     return {
         type: CONS.UNFOLLOW,
         userID: userID
     } as const
 };
 
-export const setUserAC = (users: Array<userType>) => {
+export const setUser = (users: Array<userType>) => {
     return {
         type: CONS.SET_USER,
         users: users
     } as const
 };
 
-export const setCurrentPageAC = (page: number) => {
+export const setCurrentPage = (page: number) => {
     return {
         type: CONS.SET_CURRENT_PAGE,
         page: page
     } as const
 }
 
-export const setTotalCountAC = (totalCount: number) => {
+export const setTotalCount = (totalCount: number) => {
     return {
         type: CONS.SET_TOTAL_COUNT,
         totalCount: totalCount
     } as const
 }
-export const toggleIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
     return {
         type: CONS.TOGGLE_IS_FETCHING,
         isFetching

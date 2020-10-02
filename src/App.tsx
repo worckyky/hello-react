@@ -25,7 +25,7 @@ const App = () => {
                     <Route path={'/users'}
 
                            render={() =>
-                               <UsersContainer/>}/>
+                               <UsersContainer key={1}/>}/>
                 </div>
             </div>
         </BrowserRouter>

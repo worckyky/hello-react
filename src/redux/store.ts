@@ -4,11 +4,11 @@ import sidebarReducer from "./sidebar-reducer";
 import {
     allUsersType,
     userType,
-    FollowAC,
-    UnFollowAC,
-    setUserAC,
-    setCurrentPageAC,
-    setTotalCountAC, toggleIsFetchingAC
+    Follow,
+    UnFollow,
+    setUser,
+    setCurrentPage,
+    setTotalCount, toggleIsFetching
 } from "./users-reducer";
 
 // Action type
@@ -77,12 +77,12 @@ export type ActionsType =
     | ReturnType<typeof changeNewTextAC>
     | ReturnType<typeof changeNewMessageBodyAC>
     | ReturnType<typeof addNewMessageAC>
-    | ReturnType<typeof FollowAC>
-    | ReturnType<typeof UnFollowAC>
-    | ReturnType<typeof setUserAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalCountAC>
-    | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof Follow>
+    | ReturnType<typeof UnFollow>
+    | ReturnType<typeof setUser>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalCount>
+    | ReturnType<typeof toggleIsFetching>
 
 // export type StoreType = {
 //     _state: RootStateType

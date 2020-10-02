@@ -9,8 +9,8 @@ type usersType = {
     isFetching: boolean,
     totalUsersCount: number,
     currentPage: number
-    follow: (userID: string) => void
-    unFollow: (userID: string) => void
+    Follow: (userID: string) => void
+    UnFollow: (userID: string) => void
     onPageChanged: (pageNumber: number) => void
 }
 
@@ -20,8 +20,8 @@ const Users: React.FC<usersType> = (
         pageSize,
         totalUsersCount,
         currentPage,
-        follow,
-        unFollow,
+        Follow,
+        UnFollow,
         onPageChanged,
         users,
     }
@@ -63,9 +63,9 @@ const Users: React.FC<usersType> = (
                                     </div>
                                     <div>
                                         {!u.followed ? <button onClick={() => {
-                                            follow(u.id)
+                                            Follow(u.id)
                                         }}>Follow</button> : <button onClick={() => {
-                                            unFollow(u.id)
+                                            UnFollow(u.id)
                                         }}>Unfollow</button>}
                                     </div>
                             </span>
