@@ -1,4 +1,4 @@
-import profileReducer, {addPostAC, changeNewTextAC} from "./profile-reducer";
+import profileReducer, {addPostAC, changeNewTextAC, profileType, setUserProfile} from "./profile-reducer";
 import dialogsReducer, {changeNewMessageBodyAC, addNewMessageAC} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import {
@@ -21,6 +21,7 @@ export type postDataType = {
 export type profilePageType = {
     postData: Array<postDataType>
     postText: string
+    profile: profileType | null
 }
 export type usersType = {
     name: string,
@@ -83,6 +84,7 @@ export type ActionsType =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalCount>
     | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
 
 // export type StoreType = {
 //     _state: RootStateType

@@ -2,6 +2,7 @@ import React from 'react'
 import s from './Users.module.css'
 import userPhoto from '../../assets/images/user.jpg'
 import {userType} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 type usersType = {
     users: Array<userType>
@@ -58,8 +59,11 @@ const Users: React.FC<usersType> = (
                             <span>
                                 <div>
                                     <div>
-                                        <img src={u.photos.small === null ? userPhoto : u.photos.small}
-                                             alt=""/></div>
+                                        <NavLink to={`/profile/${u.id}`}>
+                                            <img src={u.photos.small === null ? userPhoto : u.photos.small}
+                                             alt=""/>
+                                         </NavLink>
+                                    </div>
                                     </div>
                                     <div>
                                         {!u.followed ? <button onClick={() => {
