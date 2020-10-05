@@ -33,3 +33,13 @@
     color: #ffffff;
     border: 1px solid #ffffff;
 }
+.loginBlock {
+    display: flex;
+}
+.login {
+    color: white;
+    margin-right: 24px ;
+}
+.loginBlock a {
+    color: white;
+}

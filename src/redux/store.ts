@@ -3,13 +3,13 @@ import dialogsReducer, {changeNewMessageBodyAC, addNewMessageAC} from "./dialogs
 import sidebarReducer from "./sidebar-reducer";
 import {
     allUsersType,
-    userType,
     Follow,
     UnFollow,
     setUser,
     setCurrentPage,
     setTotalCount, toggleIsFetching
 } from "./users-reducer";
+import {authType, setAuthUserData} from "./auth-reducer";
 
 // Action type
 
@@ -69,7 +69,8 @@ export type RootStateType = {
     profilePage: profilePageType,
     dialogsPage: dialogPageType,
     sideBar: sideBarType,
-    usersPage: allUsersType
+    usersPage: allUsersType,
+    auth: authType
 }
 
 
@@ -85,6 +86,7 @@ export type ActionsType =
     | ReturnType<typeof setTotalCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthUserData>
 
 // export type StoreType = {
 //     _state: RootStateType

@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Headers/Header/Header';
+import HeaderContainer from './components/Headers/Header/HeaderContainer';
 import UsersContainer from "./components/Users/UsersContainer";
-import Profile from './components/Profile/Profile';
 import HeaderBg from './components/Headers/HeaderBg/HeaderBg';
 import {Route, BrowserRouter} from 'react-router-dom';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -14,10 +13,10 @@ const App = () => {
         <BrowserRouter>
             <HeaderBg/>
             <div className={'app-wrapper'}>
-                <Header/>
+                <HeaderContainer/>
                 <SidebarContainer/>
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/profile'}
+                    <Route path={'/profile/:userId?'}
                            render={() =>
                                <ProfileContainer />}/>
                     <Route path={'/dialogs'}

@@ -9,7 +9,7 @@ import {
     setTotalCount,
     toggleIsFetching
 } from '../../redux/users-reducer';
-import {ActionsType, RootStateType} from "../../redux/store";
+import {RootStateType} from "../../redux/store";
 import axios from "axios";
 import Users from "./Users";
 import loader from '../../img/loaders/loader.gif'
