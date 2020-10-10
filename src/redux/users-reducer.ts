@@ -1,4 +1,6 @@
 import {ActionsType} from "./store";
+import {UsersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 enum CONS {
     FOLLOW = 'FOLLOW',
@@ -6,7 +8,8 @@ enum CONS {
     SET_USER = 'SET_USER',
     SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
     SET_TOTAL_COUNT = 'SET_TOTAL_COUNT',
-    TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+    TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING',
+    TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 }
 
 // type photoType = string | null | undefined
@@ -34,10 +37,8 @@ export type allUsersType = {
     totalUsersCount: number,
     currentPage: number
     isFetching: boolean
+    followingInProgress: []
 }
-
-
-
 
 
 export const Follow = (userID: string) => {
@@ -54,6 +55,7 @@ export const UnFollow = (userID: string) => {
     } as const
 };
 
+
 export const setUser = (users: Array<userType>) => {
     return {
         type: CONS.SET_USER,
@@ -66,27 +68,36 @@ export const setCurrentPage = (page: number) => {
         type: CONS.SET_CURRENT_PAGE,
         page: page
     } as const
-}
+};
 
 export const setTotalCount = (totalCount: number) => {
     return {
         type: CONS.SET_TOTAL_COUNT,
         totalCount: totalCount
     } as const
-}
+};
 export const toggleIsFetching = (isFetching: boolean) => {
     return {
         type: CONS.TOGGLE_IS_FETCHING,
         isFetching
     } as const
-}
+};
+
+export const toggleFollowingInProgress = (isFetching: boolean, userId: string) => {
+    return {
+        type: CONS.TOGGLE_IS_FOLLOWING_PROGRESS,
+        isFetching,
+        userId: userId
+    } as const
+};
 
 let initialState: allUsersType = {
     users: [],
     pageSize: 100,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 };
 
 // export type UsersPageActionType =
@@ -135,10 +146,33 @@ const usersReducer = (state: allUsersType = initialState, action: ActionsType) =
                 ...state, isFetching: action.isFetching
             }
         }
+        case CONS.TOGGLE_IS_FOLLOWING_PROGRESS: {
+            return {
+                ...state,
+                // диспатчим значение true или false в зависимости от значения фетчинга
+                followingInProgress: action.isFetching
+                    // если фетчинг true - добавляем в массив followingInProgress айди пользователя
+                    ? [...state.followingInProgress, action.userId]
+                    // если фетчинг false - удаляем из массива айди пользователя
+                    : state.followingInProgress.filter(id => id != action.userId)
+            }
+        }
         default:
             return state
     }
-}
+};
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true));
+        UsersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUser(data.items));
+                dispatch(setTotalCount(data.totalCount));
+            })
+    }
+};
 
 
 export default usersReducer;
