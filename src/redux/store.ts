@@ -3,11 +3,10 @@ import dialogsReducer, {changeNewMessageBodyAC, addNewMessageAC} from "./dialogs
 import sidebarReducer from "./sidebar-reducer";
 import {
     allUsersType,
-    Follow,
-    UnFollow,
     setUser,
     setCurrentPage,
-    setTotalCount, toggleIsFetching, toggleFollowingInProgress
+    setTotalCount, toggleIsFetching, toggleFollowingInProgress,
+    AcceptFollow, AcceptUnFollow
 } from "./users-reducer";
 import {authType, setAuthUserData} from "./auth-reducer";
 
@@ -79,8 +78,8 @@ export type ActionsType =
     | ReturnType<typeof changeNewTextAC>
     | ReturnType<typeof changeNewMessageBodyAC>
     | ReturnType<typeof addNewMessageAC>
-    | ReturnType<typeof Follow>
-    | ReturnType<typeof UnFollow>
+    | ReturnType<typeof AcceptFollow>
+    | ReturnType<typeof AcceptUnFollow>
     | ReturnType<typeof setUser>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalCount>

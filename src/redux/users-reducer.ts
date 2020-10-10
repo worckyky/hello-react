@@ -37,18 +37,18 @@ export type allUsersType = {
     totalUsersCount: number,
     currentPage: number
     isFetching: boolean
-    followingInProgress: []
+    followingInProgress: (null | string)[]
 }
 
 
-export const Follow = (userID: string) => {
+export const AcceptFollow = (userID: string) => {
     return {
         type: CONS.FOLLOW,
         userID: userID
     } as const
 };
 
-export const UnFollow = (userID: string) => {
+export const AcceptUnFollow = (userID: string) => {
     return {
         type: CONS.UNFOLLOW,
         userID: userID
@@ -162,7 +162,7 @@ const usersReducer = (state: allUsersType = initialState, action: ActionsType) =
     }
 };
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+export const getUsers = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true));
         UsersAPI.getUsers(currentPage, pageSize)
@@ -174,5 +174,30 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     }
 };
 
+export const follow = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingInProgress(true, userId)) ;
+        UsersAPI.follow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(AcceptFollow(userId));
+                }
+                toggleFollowingInProgress(false, userId);
+            })
+    }
+};
+
+export const unFollow = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingInProgress(true, userId)) ;
+        UsersAPI.unFollow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(AcceptUnFollow(userId));
+                }
+                dispatch(toggleFollowingInProgress(false, userId)) ;
+            })
+    }
+};
 
 export default usersReducer;
