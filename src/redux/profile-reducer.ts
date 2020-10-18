@@ -1,5 +1,8 @@
 import {v1} from "uuid";
 import {postDataType, ActionsType, profilePageType} from "./store";
+import {Dispatch} from "redux";
+import {UsersAPI} from "../api/api";
+import {AcceptFollow, toggleFollowingInProgress} from "./users-reducer";
 
 
 enum CONS {
@@ -100,3 +103,13 @@ const profileReducer = (state: profilePageType = initialState, action: ActionsTy
 };
 
 export default profileReducer;
+
+
+export const getUserProfile = (userId: string) =>  {
+    return (dispatch: Dispatch) => {
+    UsersAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfile(response.data));
+        })
+    }
+};

@@ -1,4 +1,6 @@
 import {ActionsType} from "./store";
+import {Dispatch} from "redux";
+import {AuthAPI} from "../api/api";
 
 
 enum CONS {
@@ -51,5 +53,18 @@ const authReducer = (state: authType = initialState, action: ActionsType) => {
 }
 
 export default authReducer
+
+
+
+export const getAuthUserData = () => {
+    return (dispatch: Dispatch) => {
+        AuthAPI.me()
+            .then((response)=> {
+                if (response.data.resultCode === 0) {
+                    dispatch(setAuthUserData(response.data.data))
+                }
+            })
+    }
+}
 
 

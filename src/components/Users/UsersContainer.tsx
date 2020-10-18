@@ -26,6 +26,7 @@ type usersType = {
     isFetching: boolean
     followingInProgress: (null | string)[]
     getUsers: (currentPage: number, pageSize: number) => void
+    isAuth: boolean
 }
 
 class InnerUsersContainer extends React.Component<usersType> {
@@ -53,6 +54,7 @@ class InnerUsersContainer extends React.Component<usersType> {
                     onPageChanged={this.onPageChanged}
                     users={this.props.users}
                     followingInProgress={this.props.followingInProgress}
+                    isAuth={this.props.isAuth}
                 />
             </>)
     }
@@ -66,7 +68,8 @@ let mapStateToProps = (state: RootStateType) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth
     }
 };
 

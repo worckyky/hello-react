@@ -154,7 +154,7 @@ const usersReducer = (state: allUsersType = initialState, action: ActionsType) =
                     // если фетчинг true - добавляем в массив followingInProgress айди пользователя
                     ? [...state.followingInProgress, action.userId]
                     // если фетчинг false - удаляем из массива айди пользователя
-                    : state.followingInProgress.filter(id => id != action.userId)
+                    : state.followingInProgress.filter(id => id !== action.userId)
             }
         }
         default:

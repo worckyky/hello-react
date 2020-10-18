@@ -2,8 +2,7 @@ import React from 'react'
 import s from './Users.module.css'
 import userPhoto from '../../assets/images/user.jpg'
 import {follow, userType} from "../../redux/users-reducer";
-import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {NavLink, Redirect} from "react-router-dom";
 import {v1} from 'uuid'
 import {UsersAPI} from "../../api/api";
 
@@ -16,6 +15,7 @@ type usersType = {
     follow: (userID: string) => void
     unFollow: (userID: string) => void
     onPageChanged: (pageNumber: number) => void
+    isAuth: boolean
 }
 
 
@@ -28,7 +28,8 @@ const Users: React.FC<usersType> = (
         unFollow,
         onPageChanged,
         users,
-        followingInProgress
+        followingInProgress,
+        isAuth
     }
 ) => {
 
@@ -41,8 +42,9 @@ const Users: React.FC<usersType> = (
         pages.push(i)
     }
 
-
+    if (!isAuth) return <Redirect to={'/Login'}/>;
     return (
+
         <div>
             <div>
                 {
@@ -71,14 +73,11 @@ const Users: React.FC<usersType> = (
                                     </div>
                                     </div>
                                     <div>
-                                        {!u.followed ? <button disabled={followingInProgress.some(id => id === u.id)}
-                                                               onClick={() => {
-                                                                   follow(u.id)
-                                                               }}>Follow</button> :
-                                            <button disabled={followingInProgress.some(id => id === u.id)}
-                                                    onClick={() => {
-                                                        unFollow(u.id)
-                                                    }}>Unfollow</button>}
+                                        {!u.followed
+                                            ? <button disabled={followingInProgress.some(id => id === u.id)}
+                                                               onClick={() => {follow(u.id)}}>Follow</button>
+                                            : <button disabled={followingInProgress.some(id => id === u.id)}
+                                                    onClick={() => {unFollow(u.id)}}>Unfollow</button>}
                                     </div>
                             </span>
                             <span>

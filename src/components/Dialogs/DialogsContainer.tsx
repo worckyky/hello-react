@@ -10,7 +10,8 @@ let mapStateToProps = (state: RootStateType) => {
     return {
         dialogsUsers: state.dialogsPage.dialogData.users,
         messagesUsers: state.dialogsPage.dialogData.messages,
-        newMessageText: state.dialogsPage.newMessageBody
+        newMessageText: state.dialogsPage.newMessageBody,
+        isAuth: state.auth.isAuth
     }
 };
 

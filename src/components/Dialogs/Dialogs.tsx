@@ -3,6 +3,7 @@ import classes from './Dialogs.module.css';
 import {messagesType, usersType} from "../../redux/store";
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
+import {Redirect} from "react-router";
 
 
 
@@ -12,9 +13,15 @@ type DialogsType = {
     newMessageText: string
     clickHandler: () => void
     changeHandler: (text: string)=> void
+    isAuth: boolean
 }
 
-const Dialogs: React.FC <DialogsType> = ({newMessageText,clickHandler, changeHandler, dialogsUsers, messagesUsers}) => {
+const Dialogs: React.FC <DialogsType> = ({newMessageText,
+                                             clickHandler,
+                                             changeHandler,
+                                             dialogsUsers,
+                                             messagesUsers,
+                                             isAuth}) => {
 
         const textAreaRef = React.createRef<HTMLTextAreaElement>();
 
@@ -25,6 +32,8 @@ const Dialogs: React.FC <DialogsType> = ({newMessageText,clickHandler, changeHan
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         changeHandler(e.currentTarget.value);
     }
+
+    if (isAuth === false) return <Redirect to={'/Login'}/>;
 
     return (
         <div className={classes.dialogs}>

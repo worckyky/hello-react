@@ -1,4 +1,9 @@
-import profileReducer, {addPostAC, changeNewTextAC, profileType, setUserProfile} from "./profile-reducer";
+import profileReducer, {
+    addPostAC,
+    changeNewTextAC,
+    setUserProfile,
+    profileType,
+} from "./profile-reducer";
 import dialogsReducer, {changeNewMessageBodyAC, addNewMessageAC} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import {
