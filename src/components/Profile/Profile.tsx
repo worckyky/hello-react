@@ -4,18 +4,15 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import ChatBlockContainer from "../ChatBlock/ChatBlockContainer";
 import MyPostsContainer from "./MyPosts/MyPostsСontainer";
 import { profileType } from '../../redux/profile-reducer';
-import {Redirect} from "react-router";
 
 
 type ProfileType = {
     profile: profileType | null
-    isAuth: boolean
 }
 
 
-const Profile: React.FC<ProfileType> = ({profile, isAuth}) => {
+const Profile: React.FC<ProfileType> = ({profile}) => {
 
-    if (isAuth === false) return <Redirect to={'/Login'}/>;
 
     return (
         <div className={classes.content}>

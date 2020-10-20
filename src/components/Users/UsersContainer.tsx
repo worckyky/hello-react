@@ -12,6 +12,8 @@ import {
 import {RootStateType} from "../../redux/store";
 import Users from "./Users";
 import loader from '../../img/loaders/loader.gif'
+import { compose } from 'redux';
+import { WithAuthRedirectComponent } from '../../hoc/WithAuthRedirect';
 
 type usersType = {
     users: Array<userType>
@@ -74,14 +76,18 @@ let mapStateToProps = (state: RootStateType) => {
 };
 
 
-const UsersContainer = connect(mapStateToProps,
-    {
-        follow,
-        unFollow,
-        setUser,
-        setCurrentPage,
-        setTotalCount,
-        getUsers,
-    })(InnerUsersContainer);
 
-export default UsersContainer
+
+
+export default compose(
+    WithAuthRedirectComponent,
+    connect(mapStateToProps,
+        {
+            follow,
+            unFollow,
+            setUser,
+            setCurrentPage,
+            setTotalCount,
+            getUsers,
+        }),
+)(InnerUsersContainer) as React.ComponentClass;

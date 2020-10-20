@@ -13,7 +13,6 @@ type DialogsType = {
     newMessageText: string
     clickHandler: () => void
     changeHandler: (text: string)=> void
-    isAuth: boolean
 }
 
 const Dialogs: React.FC <DialogsType> = ({newMessageText,
@@ -21,9 +20,9 @@ const Dialogs: React.FC <DialogsType> = ({newMessageText,
                                              changeHandler,
                                              dialogsUsers,
                                              messagesUsers,
-                                             isAuth}) => {
+                                             }) => {
 
-        const textAreaRef = React.createRef<HTMLTextAreaElement>();
+    const textAreaRef = React.createRef<HTMLTextAreaElement>();
 
     const onClickHandler = () => {
         clickHandler();
@@ -32,8 +31,6 @@ const Dialogs: React.FC <DialogsType> = ({newMessageText,
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         changeHandler(e.currentTarget.value);
     }
-
-    if (isAuth === false) return <Redirect to={'/Login'}/>;
 
     return (
         <div className={classes.dialogs}>
