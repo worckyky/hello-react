@@ -22,9 +22,28 @@ export const UsersAPI = {
         return instance.delete(`follow/${userId}`)
     },
     getProfile(userId) {
-        return instance.get(`profile/${userId}`)
+        console.warn('Obsolute method / Profile API object')
+        return ProfileAPI.getProfile(userId);
     }
 }
+
+export const ProfileAPI = {
+    getProfile(userId) {
+        return instance.get(`profile/${userId}`)
+    },
+    getStatus(userId) {
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(status) {
+        return instance.put(`status`, {status})
+    }
+}
+
+
+
+
+
+
 
 
 export const AuthAPI = {

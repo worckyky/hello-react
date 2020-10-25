@@ -8,17 +8,19 @@ import { profileType } from '../../redux/profile-reducer';
 
 type ProfileType = {
     profile: profileType | null
+    status: string
+    updateStatus: (status: string) => void
 }
 
 
-const Profile: React.FC<ProfileType> = ({profile}) => {
+const Profile: React.FC<ProfileType> = ({profile,status,updateStatus}) => {
 
 
     return (
         <div className={classes.content}>
             <img className={classes.content__bg} src="https://clck.ru/MqoWL" alt=""/>
             <div className={classes.content__description}>
-                <ProfileInfo profileInformation={profile}/>
+                <ProfileInfo profileInformation={profile} status={status} updateStatus={updateStatus}/>
             </div>
             <ChatBlockContainer/>
             <MyPostsContainer/>

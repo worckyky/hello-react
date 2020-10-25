@@ -3,6 +3,7 @@ import profileReducer, {
     changeNewTextAC,
     setUserProfile,
     profileType,
+    setUserStatus,
 } from "./profile-reducer";
 import dialogsReducer, {changeNewMessageBodyAC, addNewMessageAC} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
@@ -26,6 +27,7 @@ export type profilePageType = {
     postData: Array<postDataType>
     postText: string
     profile: profileType | null
+    status: string
 }
 export type usersType = {
     name: string,
@@ -92,6 +94,7 @@ export type ActionsType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingInProgress>
+    | ReturnType<typeof setUserStatus>
 
 // export type StoreType = {
 //     _state: RootStateType

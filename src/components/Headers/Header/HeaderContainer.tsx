@@ -1,11 +1,8 @@
 import React from 'react';
-import axios from "axios";
-
 import Header from "./Header";
 import {connect} from "react-redux";
 import {RootStateType} from "../../../redux/store";
 import {getAuthUserData} from "../../../redux/auth-reducer";
-import {AuthAPI} from "../../../api/api";
 
 
 type HeaderContainerType = {

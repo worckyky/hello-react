@@ -1,14 +1,15 @@
 import {v1} from "uuid";
 import {postDataType, ActionsType, profilePageType} from "./store";
 import {Dispatch} from "redux";
-import {UsersAPI} from "../api/api";
+import {ProfileAPI, UsersAPI} from "../api/api";
 import {AcceptFollow, toggleFollowingInProgress} from "./users-reducer";
 
 
 enum CONS {
     ADD_POST = 'ADD_POST',
     UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT',
-    SET_USER_PROFILE = 'SET_USER_PROFILE'
+    SET_USER_PROFILE = 'SET_USER_PROFILE',
+    GET_USER_STATUS = 'GET_USER_STATUS',
 }
 
 type contactsDataType = string | null
@@ -52,6 +53,15 @@ export const setUserProfile = (profile: any) => {
     } as const
 }
 
+export const setUserStatus = (status: string) => {
+    return {
+        type: CONS.GET_USER_STATUS,
+        status: status
+    } as const
+};
+
+
+
 export const changeNewTextAC = (newText: string) => {
     return {
         type: CONS.UPDATE_NEW_POST_TEXT,
@@ -69,7 +79,8 @@ let initialState: profilePageType = {
         {id: v1(), message: 'Hi, how are you?', likesCount: 17},
     ],
     postText: '',
-    profile: null
+    profile: null,
+    status: ''
 };
 
 
@@ -96,7 +107,13 @@ const profileReducer = (state: profilePageType = initialState, action: ActionsTy
             return {
                 ...state,
                 profile: action.profile
-            }
+            };
+        case CONS.GET_USER_STATUS:
+            return {
+                ...state,
+                status: action.status
+            };
+
         default:
             return state;
     }
@@ -113,3 +130,24 @@ export const getUserProfile = (userId: string) =>  {
         })
     }
 };
+
+export const getUserStatus = (userId: string) =>  {
+    return (dispatch: Dispatch) => {
+        ProfileAPI.getStatus(userId)
+            .then(response => {
+                dispatch(setUserStatus(response.data));
+            })
+    }
+};
+
+
+export const updateStatus = (status: string) => {
+    return (dispatch: Dispatch) => {
+        ProfileAPI.updateStatus(status)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setUserStatus(status))
+                }
+            })
+    }
+}

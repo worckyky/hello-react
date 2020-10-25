@@ -16,6 +16,7 @@ let rerenderEntireTree = () => {
         </React.StrictMode>,
         document.getElementById('root')
     );
+
 }
 rerenderEntireTree();
 
