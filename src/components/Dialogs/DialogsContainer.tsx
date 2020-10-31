@@ -8,16 +8,10 @@ import {WithAuthRedirectComponent} from "../../hoc/WithAuthRedirect";
 import {compose} from 'redux'
 
 
-
-
-
-
-
 let mapStateToProps = (state: RootStateType) => {
     return {
         dialogsUsers: state.dialogsPage.dialogData.users,
         messagesUsers: state.dialogsPage.dialogData.messages,
-        newMessageText: state.dialogsPage.newMessageBody,
     }
 };
 
@@ -30,11 +24,8 @@ let mapStateToProps = (state: RootStateType) => {
 
 let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
     return {
-        clickHandler: () => {
-            dispatch(addNewMessageAC())
-        },
-        changeHandler: (text: string) =>  {
-            dispatch(changeNewMessageBodyAC(text))
+        sendMessage: (newMessageBody: string) => {
+            dispatch(addNewMessageAC(newMessageBody))
         }
     }
 }

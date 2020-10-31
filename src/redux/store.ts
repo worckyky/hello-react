@@ -25,7 +25,6 @@ export type postDataType = {
 }
 export type profilePageType = {
     postData: Array<postDataType>
-    postText: string
     profile: profileType | null
     status: string
 }
@@ -44,7 +43,6 @@ export type dialogDataType = {
 }
 export type dialogPageType = {
     dialogData: dialogDataType
-    newMessageBody: string
 }
 
 export type NavigationElementType = {

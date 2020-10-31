@@ -7,9 +7,10 @@ enum CONS {
     ADD_NEW_MESSAGE_BODY = 'ADD_NEW_MESSAGE_BODY'
 }
 
-export const addNewMessageAC = () => {
+export const addNewMessageAC = (newMessageBody: string) => {
     return {
         type: CONS.ADD_NEW_MESSAGE_BODY,
+        newMessageBody
     } as const
 };
 
@@ -45,8 +46,7 @@ let initialState: dialogPageType = {
             id: v1(),
             text: 'Poka'
         }]
-    },
-    newMessageBody: ''
+    }
 }
 
 const dialogsReducer = (state: dialogPageType = initialState, action: ActionsType) => {
@@ -54,14 +54,14 @@ const dialogsReducer = (state: dialogPageType = initialState, action: ActionsTyp
 
     switch (action.type) {
         case CONS.ADD_NEW_MESSAGE_BODY:
+            let body = action.newMessageBody;
             return {...state,
                 dialogData: {...state.dialogData,
                     messages: [...state.dialogData.messages, {
                         id: v1(),
-                        text: state.newMessageBody
+                        text: body
                     }]
-                },
-                newMessageBody: ''
+                }
             }
 
         case CONS.UPDATE_NEW_MESSAGE_BODY:

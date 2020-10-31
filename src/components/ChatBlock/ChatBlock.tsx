@@ -1,37 +1,55 @@
 import React, {ChangeEvent, ChangeEventHandler} from "react";
 import classes from './chatblock.module.css';
-
+import {InjectedFormProps, reduxForm, Field} from "redux-form";
+import {maxLengthCreator, requiredField} from "../../utils/validators/validators";
+import {Textarea} from "../common/FormsControlls/FormsControlls";
 
 type chatType = {
-    PostText: string
-    addPost: () => void
-    textAreaChange: (text: string) => void
+    addPost: (value: string) => void
 };
 
 
-const ChatBlock: React.FC<chatType> = ({PostText,addPost, textAreaChange}) => {
+type AddChatFormType = {
+    ChatForm: string
+}
 
-    const addPostHandler = () => {
-        addPost();
-    };
-    const textAreaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        textAreaChange(e.currentTarget.value);
+
+
+
+const maxLength30 = maxLengthCreator(30);
+const AddChatForm: React.FC<InjectedFormProps<AddChatFormType>> = (props) => {
+
+
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field name={'ChatForm'}
+                   placeholder={'Write Some Words'}
+                   component={Textarea}
+                   validate={[requiredField, maxLength30]}/>
+            <button type={'submit'}>Send</button>
+        </form>
+    )
+}
+
+const ChatBlock: React.FC<chatType> = ({addPost}) => {
+
+    const addPostHandler = (value: AddChatFormType) => {
+        addPost(value.ChatForm);
     };
 
     return (
         <div className={classes.content__chat}>
             <h2>My posts</h2>
-            <textarea name=""
-                      id=""
-                      cols={30}
-                      rows={10}
-                      placeholder={'Set your data'}
-                      onChange={textAreaChangeHandler}
-                      value={PostText}
-            />
-            <button onClick={addPostHandler}>Send</button>
+            <ReduxAddChatForm onSubmit={addPostHandler}/>
         </div>
     )
+
 };
+
+
+const ReduxAddChatForm = reduxForm<AddChatFormType>({
+    form: 'AddChatForm'
+})(AddChatForm);
+
 
 export default ChatBlock

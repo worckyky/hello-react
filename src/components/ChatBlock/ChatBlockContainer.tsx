@@ -6,20 +6,16 @@ import {ActionsType,  RootStateType} from "../../redux/store";
 
 
 let mapStateToProps = (state: RootStateType) => {
-    return {
-        PostText: state.profilePage.postText
-    }
+    // return {
+    //     PostText: state.profilePage.postText
+    // }
 };
 
 let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
     return {
-        addPost: ()  =>  {
-            dispatch(addPostAC())
-        },
-        textAreaChange: (text: string) => {
-            dispatch(changeNewTextAC(text))
+        addPost: (value: string)  =>  {
+            dispatch(addPostAC(value))
         }
-
     }
 };
 

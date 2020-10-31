@@ -22,7 +22,7 @@ const Profile: React.FC<ProfileType> = ({profile,status,updateStatus}) => {
             <div className={classes.content__description}>
                 <ProfileInfo profileInformation={profile} status={status} updateStatus={updateStatus}/>
             </div>
-            <ChatBlockContainer/>
+            <ChatBlockContainer />
             <MyPostsContainer/>
         </div>
     );

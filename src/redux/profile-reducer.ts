@@ -40,9 +40,10 @@ export type profileType = {
 }
 
 
-export const addPostAC = () => {
+export const addPostAC = (value: string) => {
     return {
         type: CONS.ADD_POST,
+        value
     } as const
 };
 
@@ -78,7 +79,6 @@ let initialState: profilePageType = {
         {id: v1(), message: 'it\'s my first post', likesCount: 16},
         {id: v1(), message: 'Hi, how are you?', likesCount: 17},
     ],
-    postText: '',
     profile: null,
     status: ''
 };
@@ -92,10 +92,9 @@ const profileReducer = (state: profilePageType = initialState, action: ActionsTy
                 ...state,
                 postData: [...state.postData, {
                     id: v1(),
-                    message: state.postText,
+                    message: action.value,
                     likesCount: 0
                 }],
-                postText: ''
             };
 
         case CONS.UPDATE_NEW_POST_TEXT:
