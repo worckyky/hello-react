@@ -1,15 +1,10 @@
 import React, { Dispatch } from "react";
-import { changeNewTextAC, addPostAC } from "../../redux/profile-reducer";
+import { addPostAC } from "../../redux/profile-reducer";
 import ChatBlock from "./ChatBlock";
 import {connect} from 'react-redux'
-import {ActionsType,  RootStateType} from "../../redux/store";
+import {ActionsType} from "../../redux/store";
 
 
-let mapStateToProps = (state: RootStateType) => {
-    // return {
-    //     PostText: state.profilePage.postText
-    // }
-};
 
 let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
     return {
@@ -19,6 +14,6 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
     }
 };
 
-const ChatBlockContainer = connect(mapStateToProps, mapDispatchToProps)(ChatBlock);
+const ChatBlockContainer = connect(mapDispatchToProps)(ChatBlock);
 
 export default ChatBlockContainer

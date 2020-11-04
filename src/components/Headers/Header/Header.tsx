@@ -3,20 +3,24 @@ import style from './Header.module.css'
 
 import {ReactComponent as Logo} from "../../../img/logos/Logo.svg";
 import { NavLink } from 'react-router-dom';
+import {Dispatch} from "redux";
 
 type HeaderType = {
     isAuth: boolean,
-    login: string | null
+    login: string | null,
+    logout: () => void
 }
 
 
-const Header: React.FC<HeaderType> = ({isAuth,login}) => {
+const Header: React.FC<HeaderType> = ({isAuth,login,logout}) => {
     return (
         <header className={style.header}>
             <Logo/>
             <div className={style.loginBlock}>
-                {isAuth ? <p className={style.login}>{login}</p> : <NavLink to={'/login'}>Login</NavLink>}
-                <button className={style.logout}>log out</button>
+                {isAuth ? <div className={style.auth__block}>
+                    <p className={style.login}>{login}</p>
+                    <button className={style.logout} onClick={logout}>log out</button>
+                </div> : <NavLink to={'/login'}>Login</NavLink>}
             </div>
 
         </header>

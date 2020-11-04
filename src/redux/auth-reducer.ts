@@ -1,51 +1,44 @@
-import {ActionsType} from "./store";
+import {ActionsType, RootStateType} from "./store";
 import {Dispatch} from "redux";
 import {AuthAPI} from "../api/api";
+import {ThunkDispatch} from "redux-thunk";
+import {stopSubmit} from "redux-form";
 
 
 enum CONS {
     SET_USER_DATA = 'SET_USER_DATA'
 }
 
-interface authUserType {
-    id: number | null,
-    email: string | null,
-    login: string | null
-}
-
-
-export interface authType extends authUserType {
-    isAuth: boolean
-}
-
-let initialState: authType = {
+let initialState = {
+    id: null as (string | null),
+    email: null as (string | null),
+    login: null as (string | null),
     isAuth: false,
-    id: null,
-    email: null,
-    login: null
 };
 
+export type AuthStateType = typeof initialState
 
-export const setAuthUserData = (data: authUserType) => {
+
+export const setAuthUserData = (id: string | null, email: string | null, login: string | null, isAuth: boolean) => {
     return {
         type: CONS.SET_USER_DATA,
         data: {
-            id: data.id,
-            email: data.email,
-            login: data.login
+            id,
+            email,
+            login,
+            isAuth
         }
     } as const
 }
 
 
-const authReducer = (state: authType = initialState, action: ActionsType) => {
-    const stateCopy = {...state}
+const authReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
+    const stateCopy = {...state};
     switch (action.type) {
         case CONS.SET_USER_DATA: {
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.data
             }
         }
     }
@@ -55,13 +48,38 @@ const authReducer = (state: authType = initialState, action: ActionsType) => {
 export default authReducer
 
 
-
 export const getAuthUserData = () => {
     return (dispatch: Dispatch) => {
         AuthAPI.me()
-            .then((response)=> {
+            .then((response) => {
                 if (response.data.resultCode === 0) {
-                    dispatch(setAuthUserData(response.data.data))
+                    let {id, login, email} = response.data.data;
+                    dispatch(setAuthUserData(id, login, email, true))
+                }
+            })
+    }
+}
+// ThunkDispatch<RootStateType, {}, ActionsType>
+export const login = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch: Dispatch) => {
+        AuthAPI.login(email, password, rememberMe)
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    let {id} = response.data.data;
+                    dispatch(setAuthUserData(id, email, email, true))
+                } else {
+                    let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
+                    dispatch(stopSubmit('login', {_error: message}));
+                }
+            })
+    }
+}
+export const logout = () => {
+    return (dispatch: Dispatch) => {
+        AuthAPI.logout()
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setAuthUserData(null, null, null, false))
                 }
             })
     }

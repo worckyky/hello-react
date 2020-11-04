@@ -170,6 +170,7 @@ export const getUsers = (currentPage: number, pageSize: number) => {
                 dispatch(toggleIsFetching(false));
                 dispatch(setUser(data.items));
                 dispatch(setTotalCount(data.totalCount));
+
             })
     }
 };

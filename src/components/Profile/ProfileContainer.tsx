@@ -10,17 +10,19 @@ import {compose} from 'redux';
 type MapStateToPropsType = {
     profile: profileType | null
     status: string
+    AuthorizedUserId:  string | null
+    isAuth: boolean
 }
 
 
 type MapDispatchPropsType = {
-    getUserProfile: (userId: string) => void,
-    getUserStatus: (userId: string) => void,
+    getUserProfile: (userId: string | undefined | null) => void,
+    getUserStatus: (userId: string | undefined | null) => void,
     updateStatus: (status: string) => void
 }
 
 type PathParamsType = {
-    userId: string,
+    userId: string | null & undefined,
 }
 
 type OwnPropsType = MapStateToPropsType & MapDispatchPropsType
@@ -30,10 +32,11 @@ type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 class InnerProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId;
 
+        let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = '3';
+            //@ts-ignore
+            userId = this.props.AuthorizedUserId;
         }
         this.props.getUserProfile(userId);
         this.props.getUserStatus(userId);
@@ -50,7 +53,9 @@ class InnerProfileContainer extends React.Component<PropsType> {
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        AuthorizedUserId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 };
 

@@ -37,14 +37,13 @@ class InnerUsersContainer extends React.Component<usersType> {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
-
     onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize);
+        this.props.setCurrentPage(pageNumber);
     };
 
     render() {
         return (
-
             <>
                 {this.props.isFetching ? <img src={loader} alt=""/> : null}
                 <Users

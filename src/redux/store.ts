@@ -14,7 +14,7 @@ import {
     setTotalCount, toggleIsFetching, toggleFollowingInProgress,
     AcceptFollow, AcceptUnFollow
 } from "./users-reducer";
-import {authType, setAuthUserData} from "./auth-reducer";
+import {AuthStateType, setAuthUserData} from "./auth-reducer";
 
 // Action type
 
@@ -74,7 +74,7 @@ export type RootStateType = {
     dialogsPage: dialogPageType,
     sideBar: sideBarType,
     usersPage: allUsersType,
-    auth: authType
+    auth: AuthStateType
 }
 
 

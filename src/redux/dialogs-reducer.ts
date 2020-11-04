@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {messagesType, dialogPageType, ActionsType} from "./store";
+import { dialogPageType, ActionsType} from "./store";
 
 
 enum CONS {

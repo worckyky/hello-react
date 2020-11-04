@@ -11,3 +11,9 @@
 .errorMessage {
     color: red;
 }
+
+.global_error {
+    color: red;
+    padding: 10px;
+    border: 1px solid red;
+}
