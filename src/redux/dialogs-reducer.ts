@@ -51,7 +51,6 @@ let initialState: dialogPageType = {
 
 const dialogsReducer = (state: dialogPageType = initialState, action: ActionsType) => {
 
-
     switch (action.type) {
         case CONS.ADD_NEW_MESSAGE_BODY:
             let body = action.newMessageBody;

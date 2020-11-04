@@ -62,7 +62,6 @@ export const setUserStatus = (status: string) => {
 };
 
 
-
 export const changeNewTextAC = (newText: string) => {
     return {
         type: CONS.UPDATE_NEW_POST_TEXT,

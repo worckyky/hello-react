@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ChangeEventHandler} from "react";
+import React from "react";
 import classes from './chatblock.module.css';
 import {InjectedFormProps, reduxForm, Field} from "redux-form";
 import {maxLengthCreator, requiredField} from "../../utils/validators/validators";
@@ -8,17 +8,12 @@ type chatType = {
     addPost: (value: string) => void
 };
 
-
 type AddChatFormType = {
     ChatForm: string
 }
 
-
-
-
 const maxLength30 = maxLengthCreator(30);
 const AddChatForm: React.FC<InjectedFormProps<AddChatFormType>> = (props) => {
-
 
     return (
         <form onSubmit={props.handleSubmit}>

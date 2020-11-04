@@ -33,40 +33,42 @@ export const setAuthUserData = (id: string | null, email: string | null, login: 
 
 
 const authReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
-    const stateCopy = {...state};
-    switch (action.type) {
+    // const stateCopy = {...state};
+     switch (action.type) {
         case CONS.SET_USER_DATA: {
             return {
                 ...state,
                 ...action.data
             }
         }
+         default :
+            return state
     }
-    return stateCopy
+
 }
 
 export default authReducer
 
 
-export const getAuthUserData = () => {
-    return (dispatch: Dispatch) => {
-        AuthAPI.me()
-            .then((response) => {
-                if (response.data.resultCode === 0) {
-                    let {id, login, email} = response.data.data;
-                    dispatch(setAuthUserData(id, login, email, true))
-                }
-            })
-    }
+export const getAuthUserData = () => (dispatch: Dispatch) => {
+    return AuthAPI.me()
+        .then((response) => {
+            if (response.data.resultCode === 0) {
+                let {id, login, email} = response.data.data;
+                dispatch(setAuthUserData(id, login, email, true))
+            }
+        })
+
 }
+
 // ThunkDispatch<RootStateType, {}, ActionsType>
 export const login = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: Dispatch) => {
         AuthAPI.login(email, password, rememberMe)
             .then((response) => {
                 if (response.data.resultCode === 0) {
-                    let {id} = response.data.data;
-                    dispatch(setAuthUserData(id, email, email, true))
+                    let {userId} = response.data.data;
+                    dispatch(setAuthUserData(userId, email, email, true))
                 } else {
                     let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
                     dispatch(stopSubmit('login', {_error: message}));

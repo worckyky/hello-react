@@ -7,13 +7,11 @@ import {
     userType,
     setCurrentPage,
     setTotalCount,
-    toggleIsFetching, toggleFollowingInProgress, getUsers
+    getUsers
 } from '../../redux/users-reducer';
 import {RootStateType} from "../../redux/store";
 import Users from "./Users";
-import loader from '../../img/loaders/loader.gif'
-import { compose } from 'redux';
-import { WithAuthRedirectComponent } from '../../hoc/WithAuthRedirect';
+import loader from '../../img/loaders/loader.gif';
 
 type usersType = {
     users: Array<userType>
@@ -75,18 +73,12 @@ let mapStateToProps = (state: RootStateType) => {
 };
 
 
-
-
-
-export default compose(
-    WithAuthRedirectComponent,
-    connect(mapStateToProps,
-        {
-            follow,
-            unFollow,
-            setUser,
-            setCurrentPage,
-            setTotalCount,
-            getUsers,
-        }),
-)(InnerUsersContainer) as React.ComponentClass;
+export default connect(mapStateToProps,
+    {
+        follow,
+        unFollow,
+        setUser,
+        setCurrentPage,
+        setTotalCount,
+        getUsers,
+    })(InnerUsersContainer);

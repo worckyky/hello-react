@@ -12,12 +12,6 @@ enum CONS {
     TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 }
 
-// type photoType = string | null | undefined
-//
-// type photosType = {
-//     large: photoType
-//     small: photoType
-// }
 
 export type userType = {
     id: string,
@@ -93,7 +87,7 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: string) =
 
 let initialState: allUsersType = {
     users: [],
-    pageSize: 100,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,

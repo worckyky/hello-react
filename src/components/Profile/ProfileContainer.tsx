@@ -32,15 +32,21 @@ type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 class InnerProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-
         let userId = this.props.match.params.userId;
         if (!userId) {
             //@ts-ignore
             userId = this.props.AuthorizedUserId;
+            if (!userId) {
+                this.props.history.push('/login')
+            }
         }
-        this.props.getUserProfile(userId);
-        this.props.getUserStatus(userId);
+
+            this.props.getUserProfile(userId);
+            this.props.getUserStatus(userId);
+
     }
+
+
 
     render() {
         return (
@@ -67,5 +73,4 @@ export default compose(
         updateStatus
     }),
     withRouter,
-    WithAuthRedirectComponent
 )(InnerProfileContainer) as React.ComponentClass;

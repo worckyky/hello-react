@@ -9,20 +9,25 @@ import SidebarContainer from "./components/Sidebar/SidebarContainer";
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Login from './components/Login/Login';
 import {connect} from "react-redux";
-import {getAuthUserData} from "./redux/auth-reducer";
 import {compose} from 'redux';
-
+import {initializeApp} from "./redux/app-reducer";
+import {RootStateType} from "./redux/store";
+import loader from '../src/img/loaders/loader.gif'
 
 type AppType = {
-    getAuthUserData: () => void,
+    initializeApp: () => void,
+    initialized: boolean
 }
 
 class App extends React.Component<AppType> {
     componentDidMount() {
-        this.props.getAuthUserData()
+        this.props.initializeApp()
     }
 
     render() {
+        if (!this.props.initialized) {
+            return <img src={loader} alt=""/>
+        }
         return (
             <BrowserRouter>
                 <HeaderBg/>
@@ -50,6 +55,12 @@ class App extends React.Component<AppType> {
     }
 }
 
-export default compose(
-    connect(null, {getAuthUserData}))(App);
+const mapStateToProps = (state: RootStateType) => {
+    return {
+        initialized: state.app.initialized
+    }
+}
+
+
+export default connect(mapStateToProps, {initializeApp})(App);
 

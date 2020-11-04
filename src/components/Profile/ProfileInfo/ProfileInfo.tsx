@@ -12,7 +12,6 @@ type ProfileInfoType = {
 }
 
 const ProfileInfo: React.FC<ProfileInfoType> = ({profileInformation,status,updateStatus}) => {
-
     if (!profileInformation) {
         return (
             <>

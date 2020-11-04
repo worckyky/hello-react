@@ -15,6 +15,7 @@ import {
     AcceptFollow, AcceptUnFollow
 } from "./users-reducer";
 import {AuthStateType, setAuthUserData} from "./auth-reducer";
+import {AppStateType, InitializedSuccessAC} from "./app-reducer";
 
 // Action type
 
@@ -74,7 +75,8 @@ export type RootStateType = {
     dialogsPage: dialogPageType,
     sideBar: sideBarType,
     usersPage: allUsersType,
-    auth: AuthStateType
+    auth: AuthStateType,
+    app: AppStateType
 }
 
 
@@ -93,6 +95,7 @@ export type ActionsType =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingInProgress>
     | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof InitializedSuccessAC>
 
 // export type StoreType = {
 //     _state: RootStateType
