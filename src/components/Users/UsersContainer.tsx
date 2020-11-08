@@ -12,6 +12,14 @@ import {
 import {RootStateType} from "../../redux/store";
 import Users from "./Users";
 import loader from '../../img/loaders/loader.gif';
+import {
+    getPageSizeSELECTOR,
+    getTotalUsersCountSELECTOR,
+    getUsersSELECTOR,
+    getCurrentPageSELECTOR,
+    getIsFetchingSELECTOR,
+    getFollowingInProgressSELECTOR
+} from "../../redux/users-selectors";
 
 type usersType = {
     users: Array<userType>
@@ -26,7 +34,6 @@ type usersType = {
     isFetching: boolean
     followingInProgress: (null | string)[]
     getUsers: (currentPage: number, pageSize: number) => void
-    isAuth: boolean
 }
 
 class InnerUsersContainer extends React.Component<usersType> {
@@ -53,7 +60,6 @@ class InnerUsersContainer extends React.Component<usersType> {
                     onPageChanged={this.onPageChanged}
                     users={this.props.users}
                     followingInProgress={this.props.followingInProgress}
-                    isAuth={this.props.isAuth}
                 />
             </>)
     }
@@ -62,13 +68,12 @@ class InnerUsersContainer extends React.Component<usersType> {
 
 let mapStateToProps = (state: RootStateType) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
-        isAuth: state.auth.isAuth
+        users: getUsersSELECTOR(state),
+        pageSize: getPageSizeSELECTOR(state),
+        totalUsersCount: getTotalUsersCountSELECTOR(state),
+        currentPage: getCurrentPageSELECTOR(state),
+        isFetching: getIsFetchingSELECTOR(state),
+        followingInProgress: getFollowingInProgressSELECTOR(state),
     }
 };
 

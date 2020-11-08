@@ -103,7 +103,7 @@ const usersReducer = (state: allUsersType = initialState, action: ActionsType) =
         case CONS.FOLLOW:
             return (
                 {
-                    ...state, users: state.users.map(user => {
+                    ...state, users: [...state.users].map(user => {
                         if (user.id === action.userID) {
                             return {...user, followed: true}
                         }
@@ -171,7 +171,7 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 
 export const follow = (userId: string) => {
     return (dispatch: Dispatch) => {
-        dispatch(toggleFollowingInProgress(true, userId)) ;
+        dispatch(toggleFollowingInProgress(true, userId));
         UsersAPI.follow(userId)
             .then(response => {
                 if (response.data.resultCode === 0) {
@@ -184,13 +184,13 @@ export const follow = (userId: string) => {
 
 export const unFollow = (userId: string) => {
     return (dispatch: Dispatch) => {
-        dispatch(toggleFollowingInProgress(true, userId)) ;
+        dispatch(toggleFollowingInProgress(true, userId));
         UsersAPI.unFollow(userId)
             .then(response => {
                 if (response.data.resultCode === 0) {
                     dispatch(AcceptUnFollow(userId));
                 }
-                dispatch(toggleFollowingInProgress(false, userId)) ;
+                dispatch(toggleFollowingInProgress(false, userId));
             })
     }
 };

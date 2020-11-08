@@ -14,7 +14,6 @@ type usersType = {
     follow: (userID: string) => void
     unFollow: (userID: string) => void
     onPageChanged: (pageNumber: number) => void
-    isAuth: boolean
 }
 
 
