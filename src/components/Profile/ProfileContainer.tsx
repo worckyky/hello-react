@@ -40,7 +40,6 @@ class InnerProfileContainer extends React.Component<PropsType> {
                 this.props.history.push('/login')
             }
         }
-
             this.props.getUserProfile(userId);
             this.props.getUserStatus(userId);
 

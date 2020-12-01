@@ -14,11 +14,9 @@ const Navigation: React.FC<NavigationBlockType> = ({Navigation}) => {
         <nav className={'navigation'}>
             <ul className={classes.navigation__list}>
                 {Navigation.map(elem => {
-
                     const convertorData = (icon: string) => {
                         return Icons[`${icon}`]
                     }
-
                     return (
                         <SideBarElement
                             text={elem.text}
