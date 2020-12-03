@@ -3,7 +3,7 @@ import profileReducer, {
     changeNewTextAC,
     setUserProfile,
     profileType,
-    setUserStatus,
+    setUserStatus, deletePostAC,
 } from "./profile-reducer";
 import dialogsReducer, {changeNewMessageBodyAC, addNewMessageAC} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
@@ -85,6 +85,7 @@ export type ActionsType =
     | ReturnType<typeof changeNewTextAC>
     | ReturnType<typeof changeNewMessageBodyAC>
     | ReturnType<typeof addNewMessageAC>
+    | ReturnType<typeof deletePostAC>
     | ReturnType<typeof AcceptFollow>
     | ReturnType<typeof AcceptUnFollow>
     | ReturnType<typeof setUser>
@@ -96,6 +97,7 @@ export type ActionsType =
     | ReturnType<typeof toggleFollowingInProgress>
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof InitializedSuccessAC>
+
 
 // export type StoreType = {
 //     _state: RootStateType

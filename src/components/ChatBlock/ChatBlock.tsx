@@ -26,7 +26,7 @@ const AddChatForm: React.FC<InjectedFormProps<AddChatFormType>> = (props) => {
     )
 }
 
-const ChatBlock: React.FC<chatType> = ({addPost}) => {
+const ChatBlock: React.FC<chatType> = React.memo(({addPost}) => {
 
     const addPostHandler = (value: AddChatFormType) => {
         addPost(value.ChatForm);
@@ -39,7 +39,7 @@ const ChatBlock: React.FC<chatType> = ({addPost}) => {
         </div>
     )
 
-};
+});
 
 
 const ReduxAddChatForm = reduxForm<AddChatFormType>({

@@ -3,13 +3,12 @@ import './App.css';
 import HeaderContainer from './components/Headers/Header/HeaderContainer';
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderBg from './components/Headers/HeaderBg/HeaderBg';
-import {Route, BrowserRouter, withRouter} from 'react-router-dom';
+import {Route, BrowserRouter} from 'react-router-dom';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import SidebarContainer from "./components/Sidebar/SidebarContainer";
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Login from './components/Login/Login';
 import {connect} from "react-redux";
-import {compose} from 'redux';
 import {initializeApp} from "./redux/app-reducer";
 import {RootStateType} from "./redux/store";
 import loader from '../src/img/loaders/loader.gif'

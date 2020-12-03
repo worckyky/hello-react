@@ -15,10 +15,10 @@ type FormDataType = {
 }
 
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
         <>
-            <form onSubmit={props.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div><Field placeholder={'Login'} name={'Email'} component={Input} validate={[requiredField]}/></div>
                 <div>
                     <Field placeholder={'Password'} name={'Password'} component={Input} validate={[requiredField]}/></div>
@@ -28,8 +28,8 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <div>
                     <button type={"submit"}>login</button>
                 </div>
-                {props.error && <div className={s.global_error}>
-                    {props.error}
+                {error && <div className={s.global_error}>
+                    {error}
                 </div>}
             </form>
         </>
